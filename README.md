@@ -1,6 +1,12 @@
 # New-Task
 
-一套「讨论新需求 → 拷问收敛 → 落计划 → 复查与风险确认 → 实施 → 收缩」的 Claude Code 工作流，以及它依赖的全部技能。仓库内容是本机 `~/.claude/skills/` 的镜像快照，按原目录结构收录，装到另一台机器上即可复现同一套流程。
+这是一套用于开发新需求的工作流, 区别于直接对话让agent开干, 解决了如下问题
+- 如何确保需求明确: 使用/grill-me方法论反复讨论需求和/planning-with-file检查决策冲突项
+- 如何确保任务过长时, agent做任务的专注力: 使用/planning-with-file为计划创建各个阶段, 并明确每阶段代办项与关键决策
+- 如何确保代码质量: 编写代码遵循'karpathy-guidelines', 在每个小阶段后会使用/code-revie-expert检查代码问题与需求实现, 最后一阶段执行完成后会使用/ponytail:review优化代码质量
+- 如何帮助用户理解agent提出的问题: 使用/caveman让agent说话简洁, 使用名词闸减少agent自造词语的数量, 并在用户不理解agent语言时, 提供/answer-me-with-html让agent画出对应html详细说明问题
+
+注意此工作流是Claude Code 工作流，本仓库已经包含/new-task以及它依赖的全部技能, 但引用的这些skill都不是最新版, 后续将会阶段式更新到最新版上.
 
 ## 六步流程
 
@@ -11,7 +17,7 @@
 | S1 拷问 | 弹框逐轮追问需求，推荐答案置首项；下限 2 轮，续期由用户定 | `caveman`、`grilling`、`answer-me-with-html` |
 | S2 落计划 | 在 `.planning/<plan-id>/` 写 `task_plan.md` / `findings.md` / `progress.md`，含审查待办行与风险表 | `planning-with-files-zh` |
 | S3 复查拷问与风险确认 | 先让 AI 挑计划自己的错，再由用户逐条给风险出口（接收 / 解决 / 重新确认） | `grilling`、`answer-me-with-html` |
-| S4 检查点 | 把计划当 Brief 交给用户，拿到「开干」才继续 | — |
+| S4 检查点 | 把计划交给用户，拿到「开干」才继续 | — |
 | S5 实施 | 按工作项推进，每项完成即审查并修 P0~P3 | `code-review-expert` |
 | S6 收尾 | 全部完成后只做一次过度设计收缩审查 | `ponytail`（插件） |
 
