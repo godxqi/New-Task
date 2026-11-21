@@ -1,19 +1,19 @@
 # S3 详细设计
 
-**目标**：把 S2 的架构落到 Container 内部：模块、接口契约、数据结构、算法边界，并给 S4 一份工作项建议。
-**分界**：C4 的 **Component 层**——Container 内部怎么造。跨 Container 的归 S2，容器内部的归 S3。
-**产物目录**：`02_DetailedDesign/output/`
+**目标**：把 S2 的架构落到 Container 内部：模块、接口契约、数据结构、算法边界；给 S4 工作项建议、给 S5 测试点。
+**分界**：C4 的 **Component 层**——Container 内部怎么造。跨 Container 的归 S2。
 **计划目录**：`.planning/plan2_DetailedDesign/`
+**产物目录**：`.planning/plan2_DetailedDesign/output/`
 
 ## 开场
 
 1. 读 S1 / S2 的 `output/`（尤其 `IF` / `DM` / `05-architecture.md`）。
-2. 建临时计划 `plan2_DetailedDesign`，切 `.active_plan`。
+2. `mkdir -p .planning/plan2_DetailedDesign/output`，写临时计划（含恢复入口），切 active。
 3. 打 S3 横幅。
 
 ## 子步
 
-所有条目按 `artifact-templates.md` 的 `DS` 字段写。
+条目按 `artifact-templates.md` 的 `DS` 字段写。
 
 ### S3-1 组件划分
 
@@ -35,16 +35,15 @@
 - 灵魂部件的内部算法、状态机、错误处理、并发与幂等策略。
 - 边界情况：空、重复、超时、部分失败、乱序。
 
-### S3-5 工作项建议（交接，不写计划）
+### S3-5 交接产物（不写计划、不写审查行）
 
-- 产出 `02_DetailedDesign/output/work-items.md`：建议工作项，字段见 `artifact-templates.md` 的「编码工作项建议清单」。
-- 每条写明：输入 `DS` / `IF` / `TC`、触及文件、依赖。
-- **不写进计划、不写审查待办行** —— 那些在 S4-1 定稿。
+- `output/work-items.md`：编码工作项建议。输入只有 `DS`（可加 `IF`），**不含 `TC`**；字段见模板。
+- `output/test-points.md`：从 `DS` 的验收点推导的**测试点**；S5 据此写成正式 `TC`。
+- **不写进计划、不写审查待办行** —— 工作项在 S4-1 定稿，TC 在 S5 定稿。
 
-## 收尾
+## 收尾（切计划门）
 
-- 复盘拷问（`grilling` 固定一轮，对象 = 详设产物）：抓接口与数据不一致、跨模块契约漂移、边界漏项。
+- 复盘拷问（`grilling` 固定一轮，对象 = 详设产物）。
 - 逐条风险确认（细节风险）。
-- ID 链检查：每个 `IF` / `DM` 有对应 `DS`；每条 `DS` 挂到 `REQ`。
-- **人工确认**：问"详设完成，是否切到 `plan3_Coding` 并 `/clear`？"
-  - 首项「切换并建议 /clear」(推荐) / 「切换但不 clear」/「先停」。
+- 设计链检查：每个 `IF` / `DM` 有对应 `DS`；每条 `DS` 挂到 `REQ`。
+- 问："详设完成，是否切到 `plan3_Coding`？"→ 建 `output/`、写临时计划（含恢复入口）、切 active、提示**强制 `/clear`** 后输入 `/new-task 继续`。
