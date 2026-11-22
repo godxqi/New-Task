@@ -18,17 +18,18 @@
 
 `WI` 与 `TC` 是 `DS` 下的两条并列支线，**不是上下游**；`WI` 的输入不含 `TC`。
 
-| 前缀 | 含义 | 产生于 | 指向 |
-|---|---|---|---|
-| `REQ-n` | 功能需求 | S1 | — |
-| `NFR-n` | 非功能需求 / 质量属性目标 | S1 / S2 | — |
-| `IF-n` | 接口 / 用例边界 | S2 | REQ |
-| `DM-n` | 数据模型条目 | S2 | REQ / IF |
-| `ADR-nnnn` | 架构决策 | S1 / S2 / S3 | 相关 IF / DM |
-| `DS-n` | 详细设计条目 | S3 | IF / DM / REQ |
-| `WI-n` | 编码工作项 | S4 | DS / IF |
-| `TC-n` | 测试用例 | S5（S3 只给测试点） | DS（可加 REQ / IF） |
-| `RV-n` | 审查行 | S4 | WI |
+| 前缀 | 全称 | 含义 | 产生于 | 指向 |
+|---|---|---|---|---|
+| `REQ-n` | Requirement | 功能需求条目 | S1 | — |
+| `NFR-n` | Non-Functional Requirement | 非功能需求 / 质量属性目标 | S1 / S2 | — |
+| `IF-n` | Interface | 接口 / 用例边界 | S2 | REQ |
+| `DM-n` | Data Model | 数据模型实体 | S2 | REQ / IF |
+| `DS-n` | Detailed Design | 详细设计条目 | S3 | IF / DM / REQ |
+| `TC-n` | Test Case | 测试用例 | S5（S3 只给测试点） | DS（可加 REQ / IF） |
+| `WI-n` | Code Unit | 编码工作项（S4） | S4 | DS / IF |
+| `RV-n` | Review | 审查行，一个 `WI` 对应一次 `code-review-expert` | S4 | WI |
+| `ADR-nnnn` | Arch Decision Record | 架构决策记录 | S1 / S2 / S3 | 相关 IF / DM |
+| `R-n` | Risk | 风险 / 未验证项 | 每个阶段 | — |
 
 ## S1 · requirements.md（功能需求拷问的产物）
 

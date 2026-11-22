@@ -25,6 +25,7 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **阶段末两段固定**：复盘拷问（`grilling` 一轮）→ 逐条风险确认（接收 / 解决 / 重新确认）
 - **切计划门 + 强制 `/clear`**：人工确认 → 建下一阶段临时计划 → 切 active → 提示 `/clear` 后输入 `/new-task 继续`
 - **S1 分两段拷问**：功能需求 4 轮（直接 / 补充 / 挑战 / 续期）；非功能需求 4 轮固定角度（边界 / 质量_1 / 质量_2 / 搭法）；NFR 单独落 `nfr.md`
+- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk（详见 `references/artifact-templates.md`）
 - **S2 只做 C4 的 Context + Container；S3 才做 Component 内部**
 - **每个阶段只写本阶段该做的事**：S1 需求 / S2 架构 / S3 详设 + 工作项建议 + 测试点 / S4 工作项 + 审查行 / S5 测试 / S6 对账 / S7 交付
 - **S4 按 `D:\SKILL.md`（karpathy-guidelines）执行**；每个 WI 一个提交、一次审查（审该 WI 自己的 diff）

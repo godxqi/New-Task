@@ -258,6 +258,7 @@
 | 切计划门 | 阶段门：人工确认后切计划；`/clear` 强制 |
 | 恢复入口 | 计划顶部的块，`/clear` 后据此继续 |
 | 三条链 | 设计 `REQ→IF→DM→DS`；实施 `DS→WI→RV`；验证 `DS→TC` |
+| ID 简写 | `REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk（详见 `artifact-templates.md`） |
 
 ## 边界
 
