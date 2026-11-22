@@ -8,7 +8,7 @@
 
 ## 开场
 
-1. 读 S1 的 `output/`（requirements / GLOSSARY / adr）。
+1. 读 S1 的 `output/`（requirements / nfr / GLOSSARY / adr）。
 2. `mkdir -p .planning/plan1_ArchitectureDesign/output`（若收尾时已建则跳过）。
 3. 写临时计划（含恢复入口），`set-active-plan.sh plan1_ArchitectureDesign`。
 4. 打 S2 横幅。
@@ -37,8 +37,8 @@
 
 ### S2-2 质量属性
 
-- 灵魂六问答案 → 质量属性表：属性 / 可度量目标 / 为什么重要 / 和谁冲突。
-- 十条属性逐项过（§3）。产出 `output/02-quality.md`。判据：每个目标带数字。
+- 读 S1 的 `output/nfr.md`（边界 + `NFR-1..n`）→ 质量属性表：属性 / 可度量目标 / 为什么重要 / 和谁冲突。
+- 十条属性逐项过（§3），把 S1 没量化的目标补成数字。产出 `output/02-quality.md`。判据：每个目标带数字。
 
 ### S2-3 用例与接口边界
 
@@ -67,7 +67,7 @@
 
 ### S2-8 取舍与 ADR
 
-- 每个真正的岔路口一份 ADR 六块；写到 `output/adr/`，计划里留索引行。
+- S1 `nfr.md` 的「搭法」表是 ADR 候选；每个真正的岔路口一份 ADR 六块，写到 `output/adr/`，计划里留索引行。
 - 自检：看不到取舍 = 没想清楚。
 
 ## 收尾（切计划门）

@@ -1,6 +1,7 @@
 # 新任务流程（task-planning）· 索引
 
-**状态**：v14 —— 2026-11-21 按第二轮复审返工：
+**状态**：v15 —— 2026-11-22 按用户指示：S1 拆成**功能需求拷问（4 轮：直接 / 补充 / 挑战 / 续期）** + **非功能需求拷问（4 轮固定角度：边界 / 质量_1 / 质量_2 / 搭法）**；NFR 单独落 `nfr.md`。
+**v14** —— 2026-11-21 按第二轮复审返工：
 - **代码根目录与 `.planning/` 同级**；**所有产物移进 `.planning/plan<N>_XXXX/output/`**（推翻 v13 的"产物与 `.planning` 同级"）；
 - 增加 **`/new-task 继续`** 恢复分支 + 每个计划里的**恢复入口**块；`/clear` 改为**强制**；
 - S1 补完整 **bootstrap**；S4 按 `D:\SKILL.md`（karpathy-guidelines）执行，补代码根目录、按 WI 提交；
@@ -26,7 +27,7 @@
 | 技能 | 模型侧 id | 前置条件 | 用于 |
 |---|---|---|---|
 | Caveman | `caveman` | 无 | 每阶段开场（`/clear` 后必须重调） |
-| Grill with Docs | `grill-with-docs` | 无（内部调 `grilling` + `domain-modeling`） | S1-1 |
+| Grill with Docs | `grill-with-docs` | 无（内部调 `grilling` + `domain-modeling`） | S1-1 / S1-2 |
 | Grilling | `grilling` | 无 | 各阶段末复盘 |
 | Domain Modeling | `domain-modeling` | 无 | 名词、GLOSSARY、ADR |
 | Planning | `planning-with-files-zh` | cwd 下能建 `.planning/` | 每阶段计划 |
@@ -70,7 +71,7 @@
 - **ADR / GLOSSARY 落本阶段 `output/`**（S1：`plan0_RequirementsConfirm/output/adr/`、`.../GLOSSARY.md`）。
 - 每阶段进入时 `mkdir -p .planning/plan<N>_XXXX/output`，建**临时计划**并 `set-active-plan.sh`。
 - 阶段开始先读上一阶段 `output/`；为空 → 停下来问用户。
-- 计划内部用 `### 阶段 <子步号>：名称`（如 `### 阶段 S1-1：拷问`）；`### 阶段` 是格式关键字，`S1-1` 是子步号。
+- 计划内部用 `### 阶段 <子步号>：名称`（如 `### 阶段 S1-1：功能需求拷问`）；`### 阶段` 是格式关键字，`S1-1` 是子步号。
 - 每个子步恰好一个 `**状态：**`；跑 `check-complete.sh --validate`。
 - `task_plan.md` 抬头写任务目录绝对路径；外部资料只进 `findings.md`。
 - 产物命名纯 ASCII。
@@ -170,6 +171,8 @@
 
 每阶段只写本阶段的事：S1 需求 / S2 架构 / S3 详设 + 工作项建议 + 测试点 / S4 工作项 + 审查行 / S5 测试 / S6 对账 / S7 交付。
 
+**S1 的内部顺序**：`S1-1 功能需求拷问（4 轮：直接 / 补充 / 挑战 / 续期）→ S1-2 非功能需求拷问（4 轮固定角度：边界 / 质量_1 / 质量_2 / 搭法）→ S1-3 落计划 → S1-4 复盘 + 风险确认`。
+
 ## ID 链（三条，不是一条）
 
 | 链 | 方向 | 含义 |
@@ -232,8 +235,8 @@
 | 解释项标推荐或当作答 / 出口 | 它是旁路 |
 | 解释页只给推荐项画图 / 多结论塞一张图 | 每个结论各一张图 |
 | 绕过 Skill 手写 `am.mjs` | 必须走完整流程 |
-| S1 下限未满时弹"要不要继续" | 工作没产出时的打扰 |
-| S1 下限满后自行判断"拷够了" | 由用户定 |
+| 功能需求拷问没到第 4 轮就弹续期 | 工作没产出时的打扰 |
+| 第 4 轮不问用户就自行进 S1-2 | 要不要再来一轮由用户定 |
 | 阶段横幅临时换步名 / 自造半号 | 用户靠步名认位置 |
 | 多个 WI 的审查合并成一条 | 用户按工作项验收 |
 | 用累计 diff 审单个 WI | 审的应是该 WI 自己的提交 |
