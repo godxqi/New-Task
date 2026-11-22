@@ -14,7 +14,7 @@
 
 - **设计链**：`REQ → IF → DM → DS`
 - **实施链**：`DS → WI → RV`
-- **验证链**：`DS → TC`
+- **验证链**：`DS → TP → TC`
 
 `WI` 与 `TC` 是 `DS` 下的两条并列支线，**不是上下游**；`WI` 的输入不含 `TC`。
 
@@ -25,7 +25,8 @@
 | `IF-n` | Interface | 接口 / 用例边界 | S2 | REQ |
 | `DM-n` | Data Model | 数据模型实体 | S2 | REQ / IF |
 | `DS-n` | Detailed Design | 详细设计条目 | S3 | IF / DM / REQ |
-| `TC-n` | Test Case | 测试用例 | S5（S3 只给测试点） | DS（可加 REQ / IF） |
+| `TP-n` | Test Point | 测试点 | S3 | DS |
+| `TC-n` | Test Case | 测试用例 | S5 | TP（可加 DS / REQ / IF） |
 | `WI-n` | Code Unit | 编码工作项（S4） | S4 | DS / IF |
 | `RV-n` | Review | 审查行，一个 `WI` 对应一次 `code-review-expert` | S4 | WI |
 | `ADR-nnnn` | Arch Decision Record | 架构决策记录 | S1 / S2 / S3 | 相关 IF / DM |
@@ -218,6 +219,7 @@
 
 | 字段 | 内容 |
 |---|---|
+| `TP-n` | Test Point 编号 |
 | 测试点 | 一句话 |
 | 来自 `DS` | `DS-n` |
 | 边界 | 空 / 重复 / 超时 / 部分失败 / 乱序 |
@@ -248,7 +250,7 @@
 | 字段 | 内容 |
 |---|---|
 | `TC-n` | 用例名 |
-| 验证 | `DS-n`（可加 `REQ-n` / `IF-n`） |
+| 验证 | `TP-n`（来自 `DS-n`；可加 `REQ-n` / `IF-n`） |
 | 前置 | 初始状态 |
 | 步骤 | 1. … 2. … |
 | 期望 | 可断言的结果 |
@@ -278,7 +280,7 @@
 |---|---|
 | 设计链 | 每个 `REQ` 有 `IF` / `DS`；每个 `IF` / `DM` 有 `DS` |
 | 实施链 | 每个 `DS` 有 `WI`；每个 `WI` 有 `RV` |
-| 验证链 | 每个 `DS` 有 `TC`；每个 `TC` 能指回 `DS` |
+| 验证链 | 每个 `DS` 有 `TP`；每个 `TP` 有 `TC`（或缺口有出口）；每个 `TC` 能指回 `TP` |
 
 | 字段 | 内容 |
 |---|---|

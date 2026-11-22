@@ -1,6 +1,6 @@
 # S5 测试
 
-> **暂留空**：以下是最小骨架，待与用户细化。
+> **骨架，待定稿**：以下是最小骨架，待与用户细化。
 
 **目标**：用测试验证 `DS` 契约，而不是只验证"跑通了"。
 **计划目录**：`.planning/plan4_Test/`
@@ -17,7 +17,7 @@
 ### S5-1 写测试用例
 
 - 按 `test-points.md` 写正式 `TC-1..n`，落 `output/test-cases.md`（字段见 `artifact-templates.md`）。
-- 每个 `TC` 标明验证的 `DS`（可加 `REQ` / `IF`）。
+- 每个 `TC` 标明验证的 `TP`（可加 `DS` / `REQ` / `IF`）。
 - 覆盖边界：空、重复、超时、部分失败、乱序。
 
 ### S5-2 跑测试
@@ -32,10 +32,12 @@
 
 ### S5-4 测试代码复审 → 提交 → 收尾
 
-1. **审查工作树**：`git diff -- <测试文件>`；调 `code-review-expert`；**Fix all，P0~P3 全修**。
-2. 修完后提交：`git add <测试文件> && git commit -m "tests: <一句话>"`。
+1. **先清工作树**：把 `.planning/plan4_Test` 的改动单独提交（`git add .planning/plan4_Test && git commit -m "plan: S5"`），让工作树只剩测试代码。
+2. 调 `code-review-expert`，**明确传入范围**：只审 `git diff -- <测试文件>`，忽略 `.planning/`；「Fix all / …」问询由 **agent 代为选 Fix all**（P0~P3 全修）。
+3. 修完后提交：`git add <测试文件> && git commit -m "tests: <一句话>"`。
 3. 复盘拷问（`grilling` 固定一轮，对象 = 测试清单与结果）。
 4. 逐条风险确认。
-5. 问："测试完成，是否切到 `plan5_Review`？"→ **更新 `plan5_Review` 的恢复入口**（已完成：S5；下一步：S6-1 对账；输入：前五阶段 `output/` + 代码根）→ `set-active-plan.sh plan5_Review`。
-6. **额外提醒提交**：测试代码不提交，S6 对账与最终 diff 会失真。
-7. 提示**强制 `/clear`** 后输入 `/new-task 继续`。
+5. 问："测试完成，是否切到 `plan5_Review`？"→ **更新当前计划**为「本阶段已完成，下一步 plan5」；**更新 `plan5_Review` 的恢复入口**（已完成：S5；下一步：S6-1 对账；输入：前五阶段 `output/` + 代码根）；`set-active-plan.sh plan5_Review`。
+6. **提醒提交**：`git add .planning/plan4_Test .planning/plan5_Review && git commit -m "S5: plan"`。
+7. **额外提醒**：测试代码不提交，S6 对账与最终 diff 会失真。
+8. 提示**强制 `/clear`** 后输入 `/new-task 继续`。

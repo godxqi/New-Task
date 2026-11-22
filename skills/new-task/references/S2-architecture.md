@@ -69,6 +69,7 @@
 - 复盘拷问（`grilling` 固定一轮，对象 = S2 全部产物）。
 - 逐条风险确认。
 - 设计链检查：`REQ → IF → DM → DS`（DS 在 S3 补）。
-- 问："架构完成，是否切到 `plan2_DetailedDesign`？"→ **更新 `plan2_DetailedDesign` 的恢复入口**（已完成：S2；下一步：S3-1 组件划分；输入：S2 `output/`）→ `set-active-plan.sh plan2_DetailedDesign`。
-- **提醒提交**：`git add .planning/plan1_ArchitectureDesign && git commit -m "S2: architecture"`。
+- 问："架构完成，是否切到 `plan2_DetailedDesign`？"
+- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan2」；**更新 `plan2_DetailedDesign` 的恢复入口**（已完成：S2；下一步：S3-1 组件划分；输入：S2 `output/`）；`set-active-plan.sh plan2_DetailedDesign`。
+- **提醒提交**：`git add .planning/plan1_ArchitectureDesign .planning/plan2_DetailedDesign && git commit -m "S2: architecture"`。
 - 提示**强制 `/clear`** 后输入 `/new-task 继续`。

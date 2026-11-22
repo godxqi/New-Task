@@ -1,5 +1,6 @@
 # NOTES — 用户的世界（供 workflow spec 使用）
 
+> **2026-11-22（v17）**：code-review-expert 只审代码根、Fix all 由 agent 代选；提交表补计划提交与下一阶段恢复入口；bootstrap 区分新仓库/已有提交并检查 git user；validate 行级校验（WI↔RV、DS↔IF/DM、DS↔TP、TP↔TC）。
 > **2026-11-22（v15/v16）**：S1 拆成功能 / NFR 两段拷问；S2-1 估规模移入 S1-2；审查改为「先审查、后提交」；ponytail 移到 S4-4；bootstrap 一次建好七阶段计划 + 空基线提交。
 > **2026-11-21（v14）**：本文件是**历史设计素材**，执行以 `workflows/task-planning.md` 为准。以下旧口径已被 v14 取代：
 > - 三件套落点 → `.planning/plan<N>_XXXX/`；产物在 `output/`

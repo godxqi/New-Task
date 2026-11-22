@@ -84,6 +84,8 @@
 ## 收尾（切计划门）
 
 1. 风险给完出口后，问："S1 完成，是否切到 `plan1_ArchitectureDesign`？"
-2. 用户确认 → **更新 `plan1_ArchitectureDesign/task_plan.md` 的恢复入口**（已完成：S1；下一步：S2-1 质量属性；输入：S1 `output/`），`set-active-plan.sh plan1_ArchitectureDesign`。
-3. **提醒提交**：`git add .planning/plan0_RequirementsConfirm && git commit -m "S1: requirements"`。
-4. 告诉用户：**`/clear` 强制**；清空后输入 `/new-task 继续`。
+2. 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan1」。
+3. **更新 `plan1_ArchitectureDesign/task_plan.md` 的恢复入口**（已完成：S1；下一步：S2-1 质量属性；输入：S1 `output/`）。
+4. `set-active-plan.sh plan1_ArchitectureDesign`。
+5. **提醒提交**：`git add .planning/plan0_RequirementsConfirm .planning/plan1_ArchitectureDesign && git commit -m "S1: requirements"`。
+6. 告诉用户：**`/clear` 强制**；清空后输入 `/new-task 继续`。

@@ -16,30 +16,29 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **先调 Skill `caveman` 再开工** —— 对话压缩（**例外**：阶段横幅不压）；`/clear` 后要**重调**
 - **七阶段顺序执行**：`S1 → S2 → S3 → S4 → S5 → S6 → S7`，不跳步、不合并
 - **`/new-task 继续` 走恢复分支**：读 `.planning/.active_plan`，不从 S1 重来
+- **`<task-id>` 必须是 ASCII slug**（`[A-Za-z0-9._-]+`）
 - **代码根目录与 `.planning/` 同级**（默认 `<task-id>/src/`）
-- **所有产物在 `.planning/plan<N>_XXXX/output/`**；`.planning` 里不再有同级产物目录
-- **进入阶段先建临时计划**（含「恢复入口」块），讨论完再复写
+- **所有产物在 `.planning/plan<N>_XXXX/output/`**
+- **计划唯一创建者是 bootstrap**：一次建好七个阶段骨架；阶段开场只读并复写成正式计划，**不新建**；切计划门只「更新恢复入口 + 换指针」
 - **遇到真正的取舍 → 强制 `AskUserQuestion` 弹框**：推荐项首项标"(推荐)"，**AI 不得自行拍**
 - **每问末位加「解释这个问题与名词」**：调 `answer-me-with-html` 出一页（**一条一页；问题与每个选项各配一张图**），再重弹同一条；它**不算作答**
 - **只有用户点选或明确调用才出页** —— AI 不自行渲染
 - **阶段末两段固定**：复盘拷问（`grilling` 一轮）→ 逐条风险确认（接收 / 解决 / 重新确认）
-- **切计划门 + 强制 `/clear`**：人工确认 → 建下一阶段临时计划 → 切 active → 提示 `/clear` 后输入 `/new-task 继续`
-- **S1 分两段拷问**：功能需求 4 轮（直接 / 补充 / 挑战 / 续期）；非功能需求 4 轮固定角度（边界 / 质量_1 / 质量_2 / 搭法）；NFR 单独落 `nfr.md`
-- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk（详见 `references/artifact-templates.md`）
+- **切计划门**：更新当前计划为「已完成，下一步 planN」→ 更新下一阶段恢复入口 → 换指针 → 提醒提交 → 强制 `/clear`
 - **S2 只做 C4 的 Context + Container；S3 才做 Component 内部**
-- **每个阶段只写本阶段该做的事**：S1 需求 / S2 架构 / S3 详设 + 工作项建议 + 测试点 / S4 工作项 + 审查行 / S5 测试 / S6 对账 / S7 交付
-- **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 WI **先审查（工作树）、后提交**；只提交代码根
-- **审查一律 Fix all，P0~P3 全修**；每个 WI 都必须有 diff，无 diff → 停下告知
+- **每个阶段只写本阶段该做的事**
+- **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 WI **先审查、后提交**；只提交代码根
+- **调 `code-review-expert` 时把范围传给它**：只审 `<代码根>` 的 diff，忽略 `.planning/`；它的「Fix all / …」问询**由 agent 代为选 Fix all**，不停下来问用户
 - **ponytail 在 S4-4 全部 WI 完成后跑**
-- **每阶段末提醒 commit**；S4/S5 额外提醒：代码 / 测试不提交会影响审查
-- **`<task-id>` 必须是 ASCII slug**（`[A-Za-z0-9._-]+`）
-- **不是 git 仓库 → 停下来告知，不许跳过**
+- **每阶段末提醒提交**；S4/S5 额外提醒：代码 / 测试不提交会影响审查
+- **不是 git 仓库 → `git init`；没有提交 → 空基线；有提交 → 记当前 HEAD 为基线**
+- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk
 - spec **沉默处** → **问用户**，不要自行决定
 - 调别的技能**一律走 Skill 工具、按 id 写**；不要试图"敲斜杠命令"
 - **不要**经过 `grill-me`
 
 ## 现在开始
 
-- `/new-task <话题>` 且无 active plan → 读索引 → S1 bootstrap（建 `<task-id>/`、git、临时计划）→ 调 `grill-with-docs`。
+- `/new-task <话题>` 且无 active plan → 读索引 → S1 bootstrap（ASCII slug、git 基线、一次建好七阶段计划）→ 调 `grill-with-docs`。
 - `/new-task 继续` 或有 active plan → 读 active plan 的「恢复入口」→ 读对应 `references/S*.md` → 重调 `caveman` → 打横幅 → 继续。
-- 每阶段末：复盘 → 风险确认 → 切计划门 → 提示强制 `/clear`。
+- 每阶段末：复盘 → 风险确认 → 切计划门（更新两个恢复入口、换指针、提醒提交、强制 `/clear`）。
