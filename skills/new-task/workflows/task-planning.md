@@ -296,7 +296,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 切计划门 | 阶段门：更新恢复入口 + 换指针 + 提示强制 `/clear` |
 | 恢复入口 | 计划顶部的块，`/clear` 后据此继续 |
 | 三条链 | 设计 `REQ→IF→DM→DS`；实施 `DS→WI→RV`；验证 `DS→TP→TC` |
-| ID 简写 | `REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk |
+| ID 简写 | `REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` CodeUnit / `RV` Review / `ADR` Arch Decision Record / `R` Risk |
 
 ## 边界
 

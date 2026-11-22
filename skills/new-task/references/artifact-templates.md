@@ -27,7 +27,7 @@
 | `DS-n` | Detailed Design | 详细设计条目 | S3 | IF / DM / REQ |
 | `TP-n` | Test Point | 测试点 | S3 | DS |
 | `TC-n` | Test Case | 测试用例 | S5 | TP（可加 DS / REQ / IF） |
-| `WI-n` | Code Unit | 编码工作项（S4） | S4 | DS / IF |
+| `WI-n` | CodeUnit | 编码工作项（S4） | S4 | DS / IF |
 | `RV-n` | Review | 审查行，一个 `WI` 对应一次 `code-review-expert` | S4 | WI |
 | `ADR-nnnn` | Arch Decision Record | 架构决策记录 | S1 / S2 / S3 | 相关 IF / DM |
 | `R-n` | Risk | 风险 / 未验证项 | 每个阶段（各自编号） | — |

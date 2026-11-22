@@ -32,7 +32,7 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **ponytail 在 S4-4 全部 WI 完成后跑**
 - **每阶段末提醒提交**；S4/S5 额外提醒：代码 / 测试不提交会影响审查
 - **不是 git 仓库 → `git init`；没有提交 → 空基线；有提交 → 记当前 HEAD 为基线**
-- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk
+- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` CodeUnit / `RV` Review / `ADR` Arch Decision Record / `R` Risk
 - spec **沉默处** → **问用户**，不要自行决定
 - 调别的技能**一律走 Skill 工具、按 id 写**；不要试图"敲斜杠命令"
 - **不要**经过 `grill-me`
