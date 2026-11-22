@@ -13,7 +13,7 @@
 
 ## 子步
 
-条目按 `artifact-templates.md` 的 `DS` 字段写，统一落 `output/detailed-design.md`（可按 Container 分节）。
+条目按 `artifact-templates.md` 的 `DetailedDesign` 字段写，统一落 `output/detailed-design.md`（可按 Container 分节）。
 
 ### S3-1 组件划分
 
@@ -22,12 +22,12 @@
 
 ### S3-2 接口契约
 
-- 把 `IF-1..n` 细化成签名 / 协议 / 错误码 / schema。
+- 把 `Interface-1..n` 细化成签名 / 协议 / 错误码 / schema。
 - 跨模块契约在此定稿；S4 不许即兴改，改就回 S3。
 
 ### S3-3 数据结构
 
-- 把 `DM-1..n` 细化成表结构 / 字段 / 索引 / 约束 / 校验规则。
+- 把 `DataModel-1..n` 细化成表结构 / 字段 / 索引 / 约束 / 校验规则。
 - 每个结构写清由哪个模块拥有、谁可以读写。
 
 ### S3-4 算法与边界
@@ -37,15 +37,15 @@
 
 ### S3-5 交接产物（不写计划、不写审查行）
 
-- `output/work-items.md`：编码工作项建议。输入只有 `DS`（可加 `IF`），**不含 `TC`**。
-- `output/test-points.md`：从 `DS` 的验收点推导的**测试点** `TP-1..n`；S5 据此写成正式 `TC`。
-- **不写进计划、不写审查待办行** —— 工作项在 S4-1 定稿，TC 在 S5 定稿。
+- `output/work-items.md`：编码工作项建议。输入只有 `DetailedDesign`（可加 `Interface`），**不含 `TestCase`**。
+- `output/test-points.md`：从 `DetailedDesign` 的验收点推导的**测试点** `TestPoint-1..n`；S5 据此写成正式 `TestCase`。
+- **不写进计划、不写审查待办行** —— 工作项在 S4-1 定稿，TestCase 在 S5 定稿。
 
 ## 收尾（切计划门）
 
 - 复盘拷问（`grilling` 固定一轮，对象 = 详设产物）。
 - 逐条风险确认。
-- 设计链检查：每个 `IF` / `DM` 有对应 `DS`；每条 `DS` 挂到 `REQ`。
+- 设计链检查：每个 `Interface` / `DataModel` 有对应 `DetailedDesign`；每条 `DetailedDesign` 挂到 `Requirement`。
 - 问："详设完成，是否切到 `plan3_Coding`？"
 - 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan3」；**更新 `plan3_Coding` 的恢复入口**（已完成：S3；下一步：S4-1 建编码计划；输入：S3 `output/`）；`set-active-plan.sh plan3_Coding`。
 - **提醒提交**：`git add .planning/plan2_DetailedDesign .planning/plan3_Coding && git commit -m "S3: detailed design"`。

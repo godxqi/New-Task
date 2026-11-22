@@ -27,12 +27,12 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **切计划门**：更新当前计划为「已完成，下一步 planN」→ 更新下一阶段恢复入口 → 换指针 → 提醒提交 → 强制 `/clear`
 - **S2 只做 C4 的 Context + Container；S3 才做 Component 内部**
 - **每个阶段只写本阶段该做的事**
-- **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 WI **先审查、后提交**；只提交代码根
+- **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 CodeUnit **先审查、后提交**；只提交代码根
 - **调 `code-review-expert` 时把范围传给它**：只审 `<代码根>` 的 diff，忽略 `.planning/`；它的「Fix all / …」问询**由 agent 代为选 Fix all**，不停下来问用户
-- **ponytail 在 S4-4 全部 WI 完成后跑**
+- **ponytail 在 S4-4 全部 CodeUnit 完成后跑**
 - **每阶段末提醒提交**；S4/S5 额外提醒：代码 / 测试不提交会影响审查
 - **不是 git 仓库 → `git init`；没有提交 → 空基线；有提交 → 记当前 HEAD 为基线**
-- **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` CodeUnit / `RV` Review / `ADR` Arch Decision Record / `R` Risk
+- **ID 全称**：Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk
 - spec **沉默处** → **问用户**，不要自行决定
 - 调别的技能**一律走 Skill 工具、按 id 写**；不要试图"敲斜杠命令"
 - **不要**经过 `grill-me`

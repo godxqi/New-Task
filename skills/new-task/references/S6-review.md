@@ -16,16 +16,16 @@
 
 ### S6-1 对账三条链
 
-分别查，不能按单链 `REQ → … → TC` 查：
+分别查，不能按单链 `Requirement → … → TestCase` 查：
 
 | 链 | 检查 |
 |---|---|
-| 设计链 | 每个 `REQ` 有 `IF` / `DS`；每个 `IF` / `DM` 有 `DS` |
-| 实施链 | 每个 `DS` 有 `WI`；每个 `WI` 有 `RV` |
-| 验证链 | 每个 `DS` 有 `TP`；每个 `TP` 有 `TC`（或缺口有出口）；每个 `TC` 能指回 `TP` |
+| 设计链 | 每个 `Requirement` 有 `Interface` / `DetailedDesign`；每个 `Interface` / `DataModel` 有 `DetailedDesign` |
+| 实施链 | 每个 `DetailedDesign` 有 `CodeUnit`；每个 `CodeUnit` 有 `Review` |
+| 验证链 | 每个 `DetailedDesign` 有 `TestPoint`；每个 `TestPoint` 有 `TestCase`（或缺口有出口）；每个 `TestCase` 能指回 `TestPoint` |
 
 - **纯非接口需求**（文案、合规）允许 `N/A`，但必须写一句理由。
-- 另查：每个 `ADR` 文件在计划里有索引行；被取代的标 `superseded by`。
+- 另查：每个 `ArchDecisionRecord` 文件在计划里有索引行；被取代的标 `superseded by`。
 - 断点列出来并标明回哪一阶段。产出 `output/reconciliation.md`。
 
 ### S6-2 完成判据（唯一一份）
@@ -34,7 +34,7 @@
 - [ ] 每条审查行打勾或写明未执行理由
 - [ ] 每个阶段风险表每条有出口或未给出口理由
 - [ ] 设计链 / 实施链 / 验证链无断点（`N/A` 有理由）
-- [ ] `ADR` 文件与索引一一对应
+- [ ] `ArchDecisionRecord` 文件与索引一一对应
 - [ ] `sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$PWD"` 通过
 - [ ] 未验证项如实列出
 

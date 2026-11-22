@@ -1,23 +1,29 @@
 # 新任务流程（task-planning）· 索引
 
-**状态**：v17 —— 2026-11-22 按第四轮复审返工：
+**状态**：v18 —— 2026-11-22 按第五轮复审返工：
+- **所有 ID 改为无空格全称**：Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk；
+- S1 bootstrap 与索引对齐（git user、已有提交、基线写七份计划、子步按 references 标题）；
+- S4 基线描述改为「以计划记的 hash 为准」；artifact 支线改为 CodeUnit/TestPoint 并列、TestCase 在 TestPoint 下；
+- S4-1 一次性拿 Fix all 授权；S7 单独提交行；coverage-gaps 无缺口也写；
+- validate：row_check 认列表、DetailedDesign 行允许 Requirement、编号排除 `..` 占位。
+**v17** —— 2026-11-22 按第四轮复审返工：
 - SKILL.md 与索引对齐「bootstrap 唯一创建者」；
 - `code-review-expert` 的范围显式传给它（只审代码根），「Fix all」由 agent 代为选择；
 - 提交表补 S4/S5 计划提交与下一阶段恢复入口；
 - bootstrap 区分「新仓库 / 已有提交」并检查 git user；子步占位写明按 references 标题；
 - 切计划门同时更新当前计划为「已完成」；
-- `validate.sh` 细化到行级：WI↔RV、DS↔IF/DM、DS↔TP、TP↔TC；
-- 新增 `TP`（Test Point）；S5/S6 标注统一为「骨架，待定稿」。
+- `validate.sh` 细化到行级：WI↔RV、DS↔Interface/DM、DS↔TP、TP↔TC；
+- 新增 `TestPoint`（Test Point）；S5/S6 标注统一为「骨架，待定稿」。
 **v16** —— 2026-11-22 按第三轮复审返工：
 - **先审查、后提交**；每阶段末提醒 commit，S4/S5 额外提醒（代码不提交会影响审查）；
 - bootstrap 建**空基线提交** + **一次性建好七个阶段的计划骨架**；切计划门只「更新恢复入口 + 换指针」；
 - 提交按阶段 / 按代码根目录**限定路径**，`.planning` 不混进 code review；
 - **S2-1 估规模移入 S1-2**（确认需求的一部分）；S2 改为 7 个子步；
-- **ponytail 移到 S4-4**（全部 WI 完成后）；S6 只做对账与验收；
+- **ponytail 移到 S4-4**（全部 CodeUnit 完成后）；S6 只做对账与验收；
 - 删除机器绝对路径，karpathy 全文放进 S4；
 - 修复 `validate.sh` 的误报与漏检；补 S5 产物固定文件名。
 
-**历史**：v15 S1 拆功能/NFR 拷问；v14 目录与 /clear 恢复；v13 内联架构依据；v12 六阶段；v11 解释页；v10 名词闸；v9 一条一页；v8 解释项；v7 落点；v6 风险确认；v5 修补；v4 审查粒度；v3 横幅；v2 续期框；v1 定稿。
+**历史**：v15 S1 拆功能/NonFunctionalRequirement 拷问；v14 目录与 /clear 恢复；v13 内联架构依据；v12 六阶段；v11 解释页；v10 名词闸；v9 一条一页；v8 解释项；v7 落点；v6 风险确认；v5 修补；v4 审查粒度；v3 横幅；v2 续期框；v1 定稿。
 
 **IRON LAW**：步骤可以被讨论、不能默默跳过 —— 任何偏离必须在当次说出来，并在该阶段计划里留痕。
 
@@ -38,12 +44,12 @@
 | Caveman | `caveman` | 无 | 每阶段开场（`/clear` 后必须重调） |
 | Grill with Docs | `grill-with-docs` | 无（内部调 `grilling` + `domain-modeling`） | S1-1 / S1-2 |
 | Grilling | `grilling` | 无 | 各阶段末复盘 |
-| Domain Modeling | `domain-modeling` | 无 | 名词、GLOSSARY、ADR |
+| Domain Modeling | `domain-modeling` | 无 | 名词、GLOSSARY、ArchDecisionRecord |
 | Planning | `planning-with-files-zh` | cwd 下能建 `.planning/` | 每阶段计划 |
 | Code Review | `code-review-expert` | 有 diff | S4 每个 WI；S5 测试代码 |
 | Ponytail Review | `ponytail:ponytail-review` | 有 diff | S4-4 |
 
-> `caveman` 只压对话输出；计划 / 三件套 / ADR / 记忆 / commit 写正常文字。**例外：阶段横幅不压。**
+> `caveman` 只压对话输出；计划 / 三件套 / ArchDecisionRecord / 记忆 / commit 写正常文字。**例外：阶段横幅不压。**
 
 ## 目录结构
 
@@ -74,7 +80,7 @@
 - **开场 `cd` 进 `<task-id>/` 一次；此后不再 `cd`**。
 - `<task-id>` 必须是 ASCII slug；用户给中文名 → 给一个 ASCII slug 并确认。
 - 计划目录 `plan<N>_XXXX`；产物在其中的 `output/`。
-- **ADR / GLOSSARY 落本阶段 `output/`**。
+- **ArchDecisionRecord / GLOSSARY 落本阶段 `output/`**。
 
 ## Bootstrap（只在 S1 开场做一次）
 
@@ -106,7 +112,7 @@
 - 再读输入：.planning/plan1_ArchitectureDesign/output/
 - 已完成：S3-1、S3-2
 - 下一步：S3-3 数据结构
-- 未决风险：R2（待用户出口）
+- 未决风险：Risk-2（待用户出口）
 - 开场动作：调 Skill `caveman` → 打 S3 横幅 → 继续
 ```
 
@@ -145,7 +151,7 @@
       ⑤ 提示强制 /clear，清空后 `/new-task 继续`
 ```
 
-- **先审查、后提交**：S4 每个 WI 先在**工作树**审，再提交。
+- **先审查、后提交**：S4 每个 CodeUnit 先在**工作树**审，再提交。
 - **切计划门是阶段门**；`/clear` 强制。
 - 风险出口：接收 / 解决 / 重新确认；选「重新确认」→ 回本阶段改，改完重跑。
 
@@ -153,9 +159,10 @@
 
 | 阶段 | 提交 |
 |---|---|
-| S1–S3 / S6 / S7 | `git add .planning/plan<N>_XXXX .planning/plan<N+1>_XXXX` → commit（含下一阶段恢复入口） |
-| S4 每个 WI（审查前） | `git add .planning/plan3_Coding && git commit -m "plan: WI-n"`，清空工作树里的计划改动 |
-| S4 每个 WI（审查后） | `git add <代码根> && git commit -m "WI-n: …"` |
+| S1–S3 / S6 | `git add .planning/plan<N>_XXXX .planning/plan<N+1>_XXXX` → commit（含下一阶段恢复入口） |
+| S7 | `git add .planning/plan6_Delivery <交付说明文件>` → commit（**没有 plan7**） |
+| S4 每个 WI（审查前） | `git add .planning/plan3_Coding && git commit -m "plan: CodeUnit-n"`，清空工作树里的计划改动 |
+| S4 每个 WI（审查后） | `git add <代码根> && git commit -m "CodeUnit-n: …"` |
 | S4-4 收缩 | `git add <代码根> && git commit -m "chore: shrink"` |
 | S4 收尾 | `git add .planning/plan3_Coding .planning/plan4_Test` → commit |
 | S5（审查前 / 后） | `git add .planning/plan4_Test && git commit -m "plan: S5"`；审测试 → `git add <测试文件> && git commit -m "tests: …"` |
@@ -171,7 +178,7 @@
 
 **形式**：`AskUserQuestion`；推荐项首项标"(推荐)"；背景写进 `description`；**不另铺长文**。**AI 不得自行拍。**
 
-**记录**：满足 ADR 三条 → 写 ADR 到本阶段 `output/adr/`，计划里留 `ADR-nnnn <标题> — <状态>` 索引行。ADR 追加、不修改；被取代的标 `superseded by ADR-nnnn`。
+**记录**：满足 ArchDecisionRecord 三条 → 写 ArchDecisionRecord 到本阶段 `output/adr/`，计划里留 `ArchDecisionRecord-nnnn <标题> — <状态>` 索引行。ArchDecisionRecord 追加、不修改；被取代的标 `superseded by ArchDecisionRecord-nnnn`。
 
 **弹框限制**：一次最多 4 问 × 4 选项；超了分批；次要问题写"我按 X 默认，除非你反对"。
 
@@ -195,34 +202,34 @@
 
 **S1 内部**：`S1-1 功能需求拷问（4 轮）→ S1-2 非功能需求拷问（4 轮）+ 估规模 → S1-3 落计划 → S1-4 复盘 + 风险确认`。
 
-**S2 内部**：`S2-1 质量属性 → S2-2 接口边界 → S2-3 数据模型 → S2-4 架构全景 → S2-5 灵魂部件与接缝 → S2-6 瓶颈 → S2-7 取舍与 ADR`。
+**S2 内部**：`S2-1 质量属性 → S2-2 接口边界 → S2-3 数据模型 → S2-4 架构全景 → S2-5 灵魂部件与接缝 → S2-6 瓶颈 → S2-7 取舍与 ArchDecisionRecord`。
 
 ## ID 链（三条）
 
 | 链 | 方向 | 含义 |
 |---|---|---|
-| **设计链** | `REQ → IF → DM → DS` | 需求 → 接口 → 数据 → 详设 |
-| **实施链** | `DS → WI → RV` | 详设 → 工作项 → 审查 |
-| **验证链** | `DS → TP → TC` | 详设 → 测试点 → 测试用例 |
+| **设计链** | `Requirement → Interface → DataModel → DetailedDesign` | 需求 → 接口 → 数据 → 详设 |
+| **实施链** | `DetailedDesign → CodeUnit → Review` | 详设 → 工作项 → 审查 |
+| **验证链** | `DetailedDesign → TestPoint → TestCase` | 详设 → 测试点 → 测试用例 |
 
-- **`WI` 的输入只有 `DS`（可加 `IF`），不含 `TC`**。
-- **NFR 编号**：S1 定义 `NFR-1..n`；S2 的质量属性表**细化同一批 ID**（补可度量目标与冲突），新增属性才续编号。
+- **`CodeUnit` 的输入只有 `DetailedDesign`（可加 `Interface`），不含 `TestCase`**。
+- **NonFunctionalRequirement 编号**：S1 定义 `NonFunctionalRequirement-1..n`；S2 的质量属性表**细化同一批 ID**（补可度量目标与冲突），新增属性才续编号。
 - 字段与全称见 [artifact-templates.md](../references/artifact-templates.md)。
 
 ## 审查待办行（**S4 计划**）
 
 ```md
-- [ ] RV-n ↳ WI-n <工作项名> 审查：Skill(code-review-expert) → Fix all → 结论回写 findings.md
+- [ ] Review-n ↳ CodeUnit-n <工作项名> 审查：Skill(code-review-expert) → Fix all → 结论回写 findings.md
 ```
 
 - 粒度 = 工作项；只在 S4-1 写。
 - **顺序 = 实施 → 审查（工作树 `git diff -- <代码根>`）→ 修复 → 提交**。
-- 每个 WI 都必须有 diff；无 diff → 停下告知，不许跳过。
+- 每个 CodeUnit 都必须有 diff；无 diff → 停下告知，不许跳过。
 - 非技术强制：靠计划注入 + 未打勾可见。
 
 ## 风险与未验证项表
 
-按 [artifact-templates.md](../references/artifact-templates.md) 写（`R-n / 内容 / 为什么未验证 / 代价 / 出口 / 落痕`）。
+按 [artifact-templates.md](../references/artifact-templates.md) 写（`Risk-n / 内容 / 为什么未验证 / 代价 / 出口 / 落痕`）。
 
 - 每个阶段 `task_plan.md` 里编号连续；最少一行「本阶段无未验证项与风险」。
 - 阶段末逐条确认；未给出口不进下一阶段。
@@ -238,7 +245,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 ```
 
 - 用户级安装默认路径成立；**项目级安装**时设 `NEW_TASK_SKILL_DIR=<项目>/.claude/skills/new-task`，或直接换成项目路径。
-- 检查：七阶段产物齐全、ID 编号连续、设计/实施/验证三条链**行级断点**、ADR 文件与索引、`nfr.md` / `GLOSSARY.md`。阶段末与 S6 后各跑一次。
+- 检查：七阶段产物齐全、ID 编号连续、设计/实施/验证三条链**行级断点**、ArchDecisionRecord 文件与索引、`nfr.md` / `GLOSSARY.md`。阶段末与 S6 后各跑一次。
 
 ## 终止
 
@@ -255,7 +262,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | `git add .` | `.planning` 会混进代码审查；按阶段 / 代码根限定路径 |
 | 让 `code-review-expert` 自己扫全树 | 必须显式告诉它只审代码根；审查前先把 `.planning` 提交掉 |
 | 停下来问用户选 Fix all | S4/S5 的问询由 agent 代为选 Fix all，不中断 |
-| 第一个 WI 没有父提交 | 无提交的仓库要有空基线；已有提交的仓库记 HEAD 为基线 |
+| 第一个 CodeUnit 没有父提交 | 无提交的仓库要有空基线；已有提交的仓库记 HEAD 为基线 |
 | 已有提交的仓库还建空基线 | 语义不清；直接记当前 HEAD |
 | 切计划门不更新当前计划 | 自愈依赖「本阶段已完成，下一步 planN」，必须写 |
 | S4/S5 只提交代码 / 测试、不提交计划 | plan3/plan4 与审查行会一直 uncommitted |
@@ -276,10 +283,10 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 功能需求拷问没到第 4 轮就弹续期 | 工作没产出时的打扰 |
 | 第 4 轮不问用户就自行进 S1-2 | 要不要再来一轮由用户定 |
 | 阶段横幅临时换步名 / 自造半号 | 用户靠步名认位置 |
-| 多个 WI 的审查合并成一条 | 用户按工作项验收 |
-| 用累计 diff 审单个 WI | 审的应是该 WI 自己的改动 |
-| 无 diff 却写"跳过" | 绿地每个 WI 都应有 diff；有问题停下来告知 |
-| 让 S6 跑 ponytail | 它已在 S4-4 全部 WI 完成后跑 |
+| 多个 CodeUnit 的审查合并成一条 | 用户按工作项验收 |
+| 用累计 diff 审单个 CodeUnit | 审的应是该 CodeUnit 自己的改动 |
+| 无 diff 却写"跳过" | 绿地每个 CodeUnit 都应有 diff；有问题停下来告知 |
+| 让 S6 跑 ponytail | 它已在 S4-4 全部 CodeUnit 完成后跑 |
 | 自动触发本流程 | 会劫持普通提问 |
 | 为中断做状态机 | 恢复靠计划里的恢复入口 |
 
@@ -295,8 +302,8 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 风险确认 | 阶段末逐条给风险定出口 |
 | 切计划门 | 阶段门：更新恢复入口 + 换指针 + 提示强制 `/clear` |
 | 恢复入口 | 计划顶部的块，`/clear` 后据此继续 |
-| 三条链 | 设计 `REQ→IF→DM→DS`；实施 `DS→WI→RV`；验证 `DS→TP→TC` |
-| ID 简写 | `REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TP` Test Point / `TC` Test Case / `WI` CodeUnit / `RV` Review / `ADR` Arch Decision Record / `R` Risk |
+| 三条链 | 设计 `REQ→IF→DM→DetailedDesign`；实施 `DS→WI→Review`；验证 `DS→TP→TestCase` |
+| ID 全称 | Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk |
 
 ## 边界
 
@@ -316,6 +323,6 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 建不出 `.planning/` | 说一句再决定落哪，不静默回退 |
 | 上一阶段 `output/` 为空 | 停在当前阶段开头，问用户 |
 | 不是 git 仓库 | `git init` + 空基线提交；不许跳过 |
-| 某个 WI 没有 diff | 停下来告知，不许写"跳过" |
+| 某个 CodeUnit 没有 diff | 停下来告知，不许写"跳过" |
 | 风险表空着且没写「本阶段无风险」 | 先补写，再跑风险确认 |
 | 用户选「重新确认」 | 回本阶段改，改完重跑 |

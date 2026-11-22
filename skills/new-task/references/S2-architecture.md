@@ -21,7 +21,7 @@
 - 再读输入：.planning/plan0_RequirementsConfirm/output/
 - 已完成：S2-1、S2-2
 - 下一步：S2-3 数据模型
-- 未决风险：R1（待用户出口）
+- 未决风险：Risk-1（待用户出口）
 - 开场动作：调 Skill `caveman` → 打 S2 横幅 → 继续
 ```
 
@@ -31,18 +31,18 @@
 
 ### S2-1 质量属性
 
-- 读 S1 的 `nfr.md`（边界 + `NFR-1..n`）与 `estimation.md`；**细化同一批 `NFR-n`**（补可度量目标、冲突、优先级），新增属性才续编号。
+- 读 S1 的 `nfr.md`（边界 + `NonFunctionalRequirement-1..n`）与 `estimation.md`；**细化同一批 `NonFunctionalRequirement-n`**（补可度量目标、冲突、优先级），新增属性才续编号。
 - 十条属性逐项过（`architecture-principles.md` §3）。产出 `output/quality-attributes.md`。判据：每个目标带数字。
 
 ### S2-2 用例与接口边界
 
-- 黑盒动作清单，挑 1~2 条主航道。产出 `output/interfaces.md`，`IF-1..n`。
-- 判据：主航道标出，每个动作挂到 `REQ`。
+- 黑盒动作清单，挑 1~2 条主航道。产出 `output/interfaces.md`，`Interface-1..n`。
+- 判据：主航道标出，每个动作挂到 `Requirement`。
 
 ### S2-3 数据模型与存储
 
 - 概念实体 + 关系；每类数据选存储类型 + 为什么（看访问形态）。
-- 产出 `output/data-model.md`，`DM-1..n`。判据：每行有存储类型和理由。
+- 产出 `output/data-model.md`，`DataModel-1..n`。判据：每行有存储类型和理由。
 
 ### S2-4 架构全景
 
@@ -59,16 +59,16 @@
 - 涨 100 倍，第一 / 第二 / 第三瓶颈；每个写现象 → 破解 → 触发条件。
 - 产出 `output/bottlenecks.md`。判据：至少两条瓶颈，各带触发条件。
 
-### S2-7 取舍与 ADR
+### S2-7 取舍与 ArchDecisionRecord
 
-- S1 `nfr.md` 的「搭法」表是 ADR 候选；每个真正的岔路口一份 ADR 六块，写到 `output/adr/`，计划里留索引行。
+- S1 `nfr.md` 的「搭法」表是 ArchDecisionRecord 候选；每个真正的岔路口一份 ArchDecisionRecord 六块，写到 `output/adr/`，计划里留索引行。
 - 自检：看不到取舍 = 没想清楚。
 
 ## 收尾（切计划门）
 
 - 复盘拷问（`grilling` 固定一轮，对象 = S2 全部产物）。
 - 逐条风险确认。
-- 设计链检查：`REQ → IF → DM → DS`（DS 在 S3 补）。
+- 设计链检查：`Requirement → Interface → DataModel → DetailedDesign`（DetailedDesign 在 S3 补）。
 - 问："架构完成，是否切到 `plan2_DetailedDesign`？"
 - 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan2」；**更新 `plan2_DetailedDesign` 的恢复入口**（已完成：S2；下一步：S3-1 组件划分；输入：S2 `output/`）；`set-active-plan.sh plan2_DetailedDesign`。
 - **提醒提交**：`git add .planning/plan1_ArchitectureDesign .planning/plan2_DetailedDesign && git commit -m "S2: architecture"`。

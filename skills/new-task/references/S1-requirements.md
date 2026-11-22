@@ -9,12 +9,16 @@
 1. `.planning/.active_plan` 已存在 → 走**继续任务**分支，不新建。
 2. 用户给 task 名（没给就问）→ 确认 **ASCII slug**（`[A-Za-z0-9._-]+`）→ `mkdir -p <task-id> && cd <task-id>`（**全程唯一一次 cd**）。
 3. 检查 git：
-   - 不是仓库 → `git init`；
-   - `git commit --allow-empty -m "chore: baseline"`；记下 `git rev-parse HEAD`。
+   - 不是仓库 → `git init`。
+   - 确认 `git config user.name` / `user.email` 已配置；缺 → 停下来让用户配置（不擅自设全局）。
+   - 若仓库**没有任何提交** → `git commit --allow-empty -m "chore: baseline"`。
+   - 若仓库**已有提交** → **不建空提交**，记当前 `git rev-parse HEAD` 为基线。
+   - 把基线 hash 写进七阶段计划。
 4. **一次性建好七个阶段的计划骨架**：对 `plan0_RequirementsConfirm` … `plan6_Delivery`：
    - `mkdir -p .planning/<plan>/output`
    - `cp -n "$HOME/.claude/skills/planning-with-files-zh/templates/task_plan.md" "$HOME/.claude/skills/planning-with-files-zh/templates/findings.md" "$HOME/.claude/skills/planning-with-files-zh/templates/progress.md" .planning/<plan>/`
    - 写最小 `task_plan.md`：恢复入口 + 子步占位（全部 `pending`）+ 基线提交号。
+   - **子步占位按各阶段 `references/S*.md` 的标题生成**：S1-1..S1-4、S2-1..S2-7、S3-1..S3-5、S4-1..S4-4、S5-1..S5-4、S6-1..S6-3、S7-1..S7-3。
 5. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/set-active-plan.sh" plan0_RequirementsConfirm`
 6. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/resolve-plan-dir.sh"` → 必须等于 `.planning/plan0_RequirementsConfirm`，否则**停**。
 
@@ -44,7 +48,7 @@
 | **第 3 轮 挑战前两轮** | 找反例、被忽略的选项、过度声称、自相矛盾 |
 | **第 4 轮 问是否再次拷问** | 推荐跟随 frontier；选「再来一轮」→ **固定加一轮「补充提问」**，再弹本问；选「不用了」→ 进 S1-2 |
 
-**产出**：`output/requirements.md`，`REQ-1..n`。
+**产出**：`output/requirements.md`，`Requirement-1..n`。
 
 ## S1-2 非功能需求拷问 —— `grill-with-docs`
 
@@ -60,7 +64,7 @@
 - **四轮固定，不弹续期框。**
 - **第 1 轮问完规模后，就地做规模估算**（原 S2-1 移到这里）：写 QPS、读 QPS、峰值系数、存储 / 年、读写比。锚点见 `architecture-principles.md` §8。
 - **产出**：
-  - `output/nfr.md`：边界 / 质量_1 / 质量_2 / 搭法（`NFR-1..n` + 候选方案表）
+  - `output/nfr.md`：边界 / 质量_1 / 质量_2 / 搭法（`NonFunctionalRequirement-1..n` + 候选方案表）
   - `output/estimation.md`：规模估算（字段见 `artifact-templates.md`）
 
 ## S1-3 落阶段计划
@@ -70,7 +74,7 @@
 - 本阶段目标
 - 子步状态（`### 阶段 S1-1：功能需求拷问` / `S1-2` / `S1-3` / `S1-4`）
 - 产出清单（requirements / nfr / estimation / GLOSSARY / ADR）
-- 决策与 `ADR` 索引
+- 决策与 `ArchDecisionRecord` 索引
 - 风险表（按 `artifact-templates.md`）
 
 **不写**实施计划、工作项、审查行。落盘后跑 `check-complete.sh --validate`。

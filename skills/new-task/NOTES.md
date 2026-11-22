@@ -1,11 +1,12 @@
 # NOTES — 用户的世界（供 workflow spec 使用）
 
-> **2026-11-22（v17）**：code-review-expert 只审代码根、Fix all 由 agent 代选；提交表补计划提交与下一阶段恢复入口；bootstrap 区分新仓库/已有提交并检查 git user；validate 行级校验（WI↔RV、DS↔IF/DM、DS↔TP、TP↔TC）。
-> **2026-11-22（v15/v16）**：S1 拆成功能 / NFR 两段拷问；S2-1 估规模移入 S1-2；审查改为「先审查、后提交」；ponytail 移到 S4-4；bootstrap 一次建好七阶段计划 + 空基线提交。
+> **2026-11-22（v18）**：所有 ID 改为无空格全称（Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk）；S4-1 一次性拿 Fix all 授权；validate 行级校验细化。
+> **2026-11-22（v17）**：code-review-expert 只审代码根、Fix all 由 agent 代选；提交表补计划提交与下一阶段恢复入口；bootstrap 区分新仓库/已有提交并检查 git user；validate 行级校验（CodeUnit↔Review、DetailedDesign↔Interface/DataModel、DetailedDesign↔TestPoint、TestPoint↔TestCase）。
+> **2026-11-22（v15/v16）**：S1 拆成功能 / NonFunctionalRequirement 两段拷问；S2-1 估规模移入 S1-2；审查改为「先审查、后提交」；ponytail 移到 S4-4；bootstrap 一次建好七阶段计划 + 空基线提交。
 > **2026-11-21（v14）**：本文件是**历史设计素材**，执行以 `workflows/task-planning.md` 为准。以下旧口径已被 v14 取代：
 > - 三件套落点 → `.planning/plan<N>_XXXX/`；产物在 `output/`
 > - 检查点 → 每阶段末「复盘 + 风险确认 + 切计划门」；`/clear` 强制
-> - 审查 → 每个 WI 一个提交、审自己的 diff；Fix all，P0~P3 全修
+> - 审查 → 每个 CodeUnit 一个提交、审自己的 diff；Fix all，P0~P3 全修
 > - 流程 → 七阶段 S1~S7（含交付）
 
 > 由 2026-09-21 会话中已核实的事实起草，待用户纠偏。**模糊词一旦被磨成正式术语，就记到这里**。
@@ -62,7 +63,7 @@
 - **S1 分两段拷问（2026-11-22）**：
   - 功能需求拷问 4 轮：第 1 轮直接提问、第 2 轮补充提问、第 3 轮挑战前两轮、第 4 轮问是否再来一轮（选「再来一轮」→ 固定加一轮「补充提问」后再问）；
   - 非功能需求拷问 4 轮固定角度：边界 → 质量_1（读写比 / 一致性）→ 质量_2（增长 / 失败代价）→ 搭法（候选方案与取舍）；
-  - NFR 单独落 `nfr.md`，不再混在 `requirements.md`。
+  - NonFunctionalRequirement 单独落 `nfr.md`，不再混在 `requirements.md`。
 - 旧口径「下限 2 轮 + 每轮续期框」已被上面取代。
 - **审查粒度 = 工作项**（2026-09-21 修订）：**每个工作项**跑一次 `code-review-expert` 并**全修 P0~P3**；
   **全部工作项完成后**才跑**一次** `ponytail:ponytail-review`。
