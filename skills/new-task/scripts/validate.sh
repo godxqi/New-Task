@@ -4,7 +4,7 @@
 # 机械校验 new-task 的产物。目标是能对「三条链无断点」负责：
 #   1. .planning/ 与 .active_plan 存在；七个 plan 目录都有 task_plan.md 与 output/
 #   2. 已完成的阶段，必需产物齐全（含 nfr.md / GLOSSARY.md）
-#   3. ID 编号连续（Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ADR）
+#   3. ID 编号连续（Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord）
 #   4. 行级链路：
 #      - interfaces.md 每个 Interface 行有 Requirement 或 N/A
 #      - detailed-design.md 每个 DetailedDesign 行有 Interface 或 DataModel
@@ -63,7 +63,9 @@ check_outputs plan6_Delivery deliverables.md
 
 check_contiguous() {
   local p="$1" nums max n gap=0
-  nums="$(grep -rhoE "\\b${p}-[0-9]+(\\.\\.)?" "$PLAN" 2>/dev/null | grep -v '\\.\\.$' | sed 's/.*-//' | sort -n | uniq)"
+  nums="$(find "$PLAN" -type f -name '*.md' -exec cat {} + 2>/dev/null \
+    | sed -E 's/[A-Za-z]+-[0-9]+\.\.[A-Za-z]+-?[0-9]*//g; s/[A-Za-z]+-[0-9]+\.\.n//g' \
+    | grep -oE "\\b${p}-[0-9]+" | sed 's/.*-//' | sort -n | uniq)"
   if [ -z "$nums" ]; then note "$p: 未使用"; return; fi
   max="$(printf '%s\n' "$nums" | tail -1)"
   n=1

@@ -1,6 +1,12 @@
 # 新任务流程（task-planning）· 索引
 
-**状态**：v18 —— 2026-11-22 按第五轮复审返工：
+**状态**：v19 —— 2026-11-22 按第六轮复审返工：
+- Fix all 授权规则在 S4-3 / SKILL / 反模式三处统一为「已授权才代选」；
+- S5 顺序改为 写测试 → 审测试代码 → 跑测试 → 缺口；
+- coverage-gaps 增加 `TestPoint-n` 列，缺口必须挂测试点；
+- validate 排除 `A-1..B-5` 范围写法；S4/S5 清工作树无改动可跳过；
+- 残留 `NFR` / `ADR` 概念词统一为全称。
+**v18** —— 2026-11-22 按第五轮复审返工：
 - **所有 ID 改为无空格全称**：Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk；
 - S1 bootstrap 与索引对齐（git user、已有提交、基线写七份计划、子步按 references 标题）；
 - S4 基线描述改为「以计划记的 hash 为准」；artifact 支线改为 CodeUnit/TestPoint 并列、TestCase 在 TestPoint 下；
@@ -12,7 +18,7 @@
 - 提交表补 S4/S5 计划提交与下一阶段恢复入口；
 - bootstrap 区分「新仓库 / 已有提交」并检查 git user；子步占位写明按 references 标题；
 - 切计划门同时更新当前计划为「已完成」；
-- `validate.sh` 细化到行级：WI↔RV、DS↔Interface/DM、DS↔TP、TP↔TC；
+- `validate.sh` 细化到行级：CodeUnit↔Review、DetailedDesign↔Interface/DataModel、DetailedDesign↔TestPoint、TestPoint↔TestCase；
 - 新增 `TestPoint`（Test Point）；S5/S6 标注统一为「骨架，待定稿」。
 **v16** —— 2026-11-22 按第三轮复审返工：
 - **先审查、后提交**；每阶段末提醒 commit，S4/S5 额外提醒（代码不提交会影响审查）；
@@ -261,7 +267,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 先提交再审查 | 工作树干净后 `code-review-expert` 看不到变更；必须**先审查、后提交** |
 | `git add .` | `.planning` 会混进代码审查；按阶段 / 代码根限定路径 |
 | 让 `code-review-expert` 自己扫全树 | 必须显式告诉它只审代码根；审查前先把 `.planning` 提交掉 |
-| 停下来问用户选 Fix all | S4/S5 的问询由 agent 代为选 Fix all，不中断 |
+| 未授权就代选 Fix all | S4-1 已授权才由 agent 代选；未授权按用户档位，不静默覆盖 |
 | 第一个 CodeUnit 没有父提交 | 无提交的仓库要有空基线；已有提交的仓库记 HEAD 为基线 |
 | 已有提交的仓库还建空基线 | 语义不清；直接记当前 HEAD |
 | 切计划门不更新当前计划 | 自愈依赖「本阶段已完成，下一步 planN」，必须写 |
@@ -302,7 +308,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 风险确认 | 阶段末逐条给风险定出口 |
 | 切计划门 | 阶段门：更新恢复入口 + 换指针 + 提示强制 `/clear` |
 | 恢复入口 | 计划顶部的块，`/clear` 后据此继续 |
-| 三条链 | 设计 `REQ→IF→DM→DetailedDesign`；实施 `DS→WI→Review`；验证 `DS→TP→TestCase` |
+| 三条链 | 设计 `Requirement→Interface→DataModel→DetailedDesign`；实施 `DetailedDesign→CodeUnit→Review`；验证 `DetailedDesign→TestPoint→TestCase` |
 | ID 全称 | Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk |
 
 ## 边界

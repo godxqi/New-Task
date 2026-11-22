@@ -28,9 +28,9 @@
 
 ## S4-3 逐工作项审查 → 提交
 
-1. **先清工作树**：把 `.planning/plan3_Coding` 的改动单独提交（`git add .planning/plan3_Coding && git commit -m "plan: CodeUnit-n"`），让工作树只剩代码。
+1. **先清工作树**：把 `.planning/plan3_Coding` 的改动单独提交（`git add .planning/plan3_Coding && git commit -m "plan: CodeUnit-n"`；无改动则跳过），让工作树只剩代码。
 2. 调 **Skill `code-review-expert`**，并在调用提示里**明确传入范围**：只审 `git diff -- <代码根>`，**忽略 `.planning/`**。
-3. 它默认弹「Fix all / P0-P1 only / 不改」——**由 agent 代为选 Fix all（P0~P3 全修）**，不要停下来问用户，也不要等用户点。
+3. 它默认弹「Fix all / P0-P1 only / 不改」——**S4-1 已授权 → agent 代选 Fix all（P0~P3 全修）；未授权 → 按用户选的档位，不静默覆盖技能规则**。
 4. 结论回写 `findings.md`；拒绝修复的写明理由，并进风险表拿出口。
 5. 修完后**再提交代码**：`git add <代码根> && git commit -m "CodeUnit-n: <一句话>"`。
 6. 每条审查行都必须真调技能，不得"沿用上次口径"。
