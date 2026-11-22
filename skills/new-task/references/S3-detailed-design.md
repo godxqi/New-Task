@@ -7,13 +7,13 @@
 
 ## 开场
 
-1. 读 S1 / S2 的 `output/`（尤其 `IF` / `DM` / `05-architecture.md`）。
-2. `mkdir -p .planning/plan2_DetailedDesign/output`，写临时计划（含恢复入口），切 active。
+1. 读 S1 / S2 的 `output/`（尤其 `interfaces.md`、`data-model.md`、`architecture.md`）。
+2. **不新建计划**；读 active plan，把临时骨架复写成正式计划。
 3. 打 S3 横幅。
 
 ## 子步
 
-条目按 `artifact-templates.md` 的 `DS` 字段写。
+条目按 `artifact-templates.md` 的 `DS` 字段写，统一落 `output/detailed-design.md`（可按 Container 分节）。
 
 ### S3-1 组件划分
 
@@ -37,13 +37,15 @@
 
 ### S3-5 交接产物（不写计划、不写审查行）
 
-- `output/work-items.md`：编码工作项建议。输入只有 `DS`（可加 `IF`），**不含 `TC`**；字段见模板。
+- `output/work-items.md`：编码工作项建议。输入只有 `DS`（可加 `IF`），**不含 `TC`**。
 - `output/test-points.md`：从 `DS` 的验收点推导的**测试点**；S5 据此写成正式 `TC`。
 - **不写进计划、不写审查待办行** —— 工作项在 S4-1 定稿，TC 在 S5 定稿。
 
 ## 收尾（切计划门）
 
 - 复盘拷问（`grilling` 固定一轮，对象 = 详设产物）。
-- 逐条风险确认（细节风险）。
+- 逐条风险确认。
 - 设计链检查：每个 `IF` / `DM` 有对应 `DS`；每条 `DS` 挂到 `REQ`。
-- 问："详设完成，是否切到 `plan3_Coding`？"→ 建 `output/`、写临时计划（含恢复入口）、切 active、提示**强制 `/clear`** 后输入 `/new-task 继续`。
+- 问："详设完成，是否切到 `plan3_Coding`？"→ **更新 `plan3_Coding` 的恢复入口**（已完成：S3；下一步：S4-1 建编码计划；输入：S3 `output/`）→ `set-active-plan.sh plan3_Coding`。
+- **提醒提交**：`git add .planning/plan2_DetailedDesign && git commit -m "S3: detailed design"`。
+- 提示**强制 `/clear`** 后输入 `/new-task 继续`。

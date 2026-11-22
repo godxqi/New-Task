@@ -1,5 +1,6 @@
 # NOTES — 用户的世界（供 workflow spec 使用）
 
+> **2026-11-22（v15/v16）**：S1 拆成功能 / NFR 两段拷问；S2-1 估规模移入 S1-2；审查改为「先审查、后提交」；ponytail 移到 S4-4；bootstrap 一次建好七阶段计划 + 空基线提交。
 > **2026-11-21（v14）**：本文件是**历史设计素材**，执行以 `workflows/task-planning.md` 为准。以下旧口径已被 v14 取代：
 > - 三件套落点 → `.planning/plan<N>_XXXX/`；产物在 `output/`
 > - 检查点 → 每阶段末「复盘 + 风险确认 + 切计划门」；`/clear` 强制

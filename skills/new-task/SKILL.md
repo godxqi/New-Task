@@ -28,8 +28,11 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **ID 简写与全称**：`REQ` Requirement / `NFR` Non-Functional Requirement / `IF` Interface / `DM` Data Model / `DS` Detailed Design / `TC` Test Case / `WI` Code Unit / `RV` Review / `ADR` Arch Decision Record / `R` Risk（详见 `references/artifact-templates.md`）
 - **S2 只做 C4 的 Context + Container；S3 才做 Component 内部**
 - **每个阶段只写本阶段该做的事**：S1 需求 / S2 架构 / S3 详设 + 工作项建议 + 测试点 / S4 工作项 + 审查行 / S5 测试 / S6 对账 / S7 交付
-- **S4 按 `D:\SKILL.md`（karpathy-guidelines）执行**；每个 WI 一个提交、一次审查（审该 WI 自己的 diff）
+- **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 WI **先审查（工作树）、后提交**；只提交代码根
 - **审查一律 Fix all，P0~P3 全修**；每个 WI 都必须有 diff，无 diff → 停下告知
+- **ponytail 在 S4-4 全部 WI 完成后跑**
+- **每阶段末提醒 commit**；S4/S5 额外提醒：代码 / 测试不提交会影响审查
+- **`<task-id>` 必须是 ASCII slug**（`[A-Za-z0-9._-]+`）
 - **不是 git 仓库 → 停下来告知，不许跳过**
 - spec **沉默处** → **问用户**，不要自行决定
 - 调别的技能**一律走 Skill 工具、按 id 写**；不要试图"敲斜杠命令"
