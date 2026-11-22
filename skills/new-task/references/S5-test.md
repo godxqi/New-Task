@@ -36,6 +36,7 @@
 - 缺口落 `output/coverage-gaps.md`；**无缺口也写「无缺口」，文件必须存在**。
 - **每个缺口必须挂到具体 `TestPoint-n`**（模板有 `TestPoint-n` 列），否则 validate 会判验证链断裂。
 - 缺 `TestCase`、`TestCase` 没验证契约、边界没覆盖 → **默认必须补**；用户要跳过 → 缺口必须进风险表并拿到出口。
+- **补齐缺口后重跑全量**，更新 `output/test-results.md`；新补的 `TestCase` 必须出现在结果里，不能沿用补测前的旧结果。
 - 复盘拷问（`grilling` 固定一轮，对象 = 测试清单与结果）。
 - 逐条风险确认。
 - 问："测试完成，是否切到 `plan5_Review`？"→ **更新当前计划**为「本阶段已完成，下一步 plan5」；**更新 `plan5_Review` 的恢复入口**（已完成：S5；下一步：S6-1 对账；输入：前五阶段 `output/` + 代码根）；`set-active-plan.sh plan5_Review`。

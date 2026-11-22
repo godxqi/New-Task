@@ -1,6 +1,6 @@
 # S1 需求分析
 
-**目标**：先问清功能需求，再问清非功能需求并做规模估算，产出需求、NFR、估算、术语、本阶段计划与风险表。
+**目标**：先问清功能需求，再问清非功能需求并做规模估算，产出需求、NonFunctionalRequirement、估算、术语、本阶段计划与风险表。
 **计划目录**：`.planning/plan0_RequirementsConfirm/`
 **产物目录**：`.planning/plan0_RequirementsConfirm/output/`
 
@@ -73,7 +73,7 @@
 
 - 本阶段目标
 - 子步状态（`### 阶段 S1-1：功能需求拷问` / `S1-2` / `S1-3` / `S1-4`）
-- 产出清单（requirements / nfr / estimation / GLOSSARY / ADR）
+- 产出清单（requirements / nfr / estimation / GLOSSARY / ArchDecisionRecord）
 - 决策与 `ArchDecisionRecord` 索引
 - 风险表（按 `artifact-templates.md`）
 
@@ -81,7 +81,7 @@
 
 ## S1-4 复盘拷问 + 风险确认
 
-- `grilling` 固定一轮，对象 = 需求、NFR、估算与本阶段计划。
+- `grilling` 固定一轮，对象 = 需求、NonFunctionalRequirement、估算与本阶段计划。
 - 翻出重大错误 → 回 S1-1 / S1-2 / S1-3 改，改完补一次本段。
 - 逐条风险确认（接收 / 解决 / 重新确认）。
 

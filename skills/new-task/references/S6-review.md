@@ -35,6 +35,7 @@
 - [ ] 每个阶段风险表每条有出口或未给出口理由
 - [ ] 设计链 / 实施链 / 验证链无断点（`N/A` 有理由）
 - [ ] `ArchDecisionRecord` 文件与索引一一对应
+- [ ] `test-results.md` **无 fail / not-run**（或有出口写进风险表）
 - [ ] `sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$PWD"` 通过
 - [ ] 未验证项如实列出
 

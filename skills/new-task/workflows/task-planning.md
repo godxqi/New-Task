@@ -1,11 +1,15 @@
 # 新任务流程（task-planning）· 索引
 
-**状态**：v19 —— 2026-11-22 按第六轮复审返工：
+**状态**：v20 —— 2026-11-22 按第七轮复审返工：
+- 补完残留 `NonFunctionalRequirement` / `ArchDecisionRecord` 概念词（v19 声称已改，实际漏改）；
+- S5-4 补缺口后**重跑全量**并更新 `test-results.md`；
+- S6-2 增加「`test-results.md` 无 fail / not-run（或有出口）」判据。
+**v19** —— 2026-11-22 按第六轮复审返工：
 - Fix all 授权规则在 S4-3 / SKILL / 反模式三处统一为「已授权才代选」；
 - S5 顺序改为 写测试 → 审测试代码 → 跑测试 → 缺口；
 - coverage-gaps 增加 `TestPoint-n` 列，缺口必须挂测试点；
 - validate 排除 `A-1..B-5` 范围写法；S4/S5 清工作树无改动可跳过；
-- 残留 `NFR` / `ADR` 概念词统一为全称。
+- 残留 `NonFunctionalRequirement` / `ArchDecisionRecord` 概念词统一为全称。
 **v18** —— 2026-11-22 按第五轮复审返工：
 - **所有 ID 改为无空格全称**：Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk；
 - S1 bootstrap 与索引对齐（git user、已有提交、基线写七份计划、子步按 references 标题）；

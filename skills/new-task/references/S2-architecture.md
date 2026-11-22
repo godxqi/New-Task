@@ -1,6 +1,6 @@
 # S2 架构设计
 
-**目标**：产出可被 S3 消费的架构方案：质量属性、接口、数据模型、全景图、瓶颈、ADR。
+**目标**：产出可被 S3 消费的架构方案：质量属性、接口、数据模型、全景图、瓶颈、ArchDecisionRecord。
 **依据**：`references/architecture-principles.md`（已内联）。
 **分界**：只做 **C4 的 Context + Container 层**；Container 内部留给 S3。
 **计划目录**：`.planning/plan1_ArchitectureDesign/`

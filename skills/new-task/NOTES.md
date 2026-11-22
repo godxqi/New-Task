@@ -1,5 +1,6 @@
 # NOTES — 用户的世界（供 workflow spec 使用）
 
+> **2026-11-22（v20）**：补完 NonFunctionalRequirement / ArchDecisionRecord 概念词；S5-4 补缺口后重跑并更新 test-results；S6-2 增加测试结果判据。
 > **2026-11-22（v19）**：Fix all 授权三处统一；S5 改为先审测试代码再跑；coverage-gaps 挂 TestPoint；validate 排除范围写法。
 > **2026-11-22（v18）**：所有 ID 改为无空格全称（Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk）；S4-1 一次性拿 Fix all 授权；validate 行级校验细化。
 > **2026-11-22（v17）**：code-review-expert 只审代码根、Fix all 由 agent 代选；提交表补计划提交与下一阶段恢复入口；bootstrap 区分新仓库/已有提交并检查 git user；validate 行级校验（CodeUnit↔Review、DetailedDesign↔Interface/DataModel、DetailedDesign↔TestPoint、TestPoint↔TestCase）。

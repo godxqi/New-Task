@@ -75,7 +75,7 @@
 |---|---|---|---|---|
 | A | … | … | … | … |
 
-> 第 4 轮的取舍，S2-7 正式写成 ADR。
+> 第 4 轮的取舍，S2-7 正式写成 ArchDecisionRecord。
 
 ## S1 · estimation.md（规模估算，第 1 轮问完规模后做）
 
@@ -96,7 +96,7 @@
 | 定义 | 1~2 句，说明它是什么 |
 | `_Avoid_` | 不要用的同义词 |
 
-## S1 / S2 / S3 · ADR（六块）
+## S1 / S2 / S3 · ArchDecisionRecord（六块）
 
 ```md
 # ArchDecisionRecord-nnnn <标题>
