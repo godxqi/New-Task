@@ -43,9 +43,9 @@ Create files lazily: only when you have something to write. If no `GLOSSARY.md` 
 
 When this skill runs inside `new-task`, write docs to the active stage's **output** folder, not `.planning/` (which holds plan files only):
 
-- **ADRs**: `<stage-output-dir>/adr/NNNN-slug.md` (e.g. `.planning/plan0_RequirementsConfirm/output/adr/`).
+- **ADRs**: `<stage-output-dir>/adr/NNNN-slug.md` (e.g. `.planning/plan1_RequirementsConfirm/output/adr/`).
 - **Index**: after writing an ADR, add one line to that stage's `task_plan.md` (under `.planning/plan<N>_XXXX/`) — `ADR-nnnn <title> — <status>`.
-- **Glossary**: `<stage-output-dir>/GLOSSARY.md` (e.g. `.planning/plan0_RequirementsConfirm/output/GLOSSARY.md`).
+- **Glossary**: `<stage-output-dir>/GLOSSARY.md` (e.g. `.planning/plan1_RequirementsConfirm/output/GLOSSARY.md`).
 - **Architecture-level decisions** (S2): use the full six-block format in [ADR-FORMAT.md](./ADR-FORMAT.md), not the one-paragraph default.
 
 ## During the session

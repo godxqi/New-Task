@@ -26,6 +26,11 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **阶段末两段固定**：复盘拷问（`grilling` 一轮）→ 逐条风险确认（接收 / 解决 / 重新确认）
 - **切计划门**：更新当前计划为「已完成，下一步 planN」→ 更新下一阶段恢复入口 → 换指针 → 提醒提交 → 强制 `/clear`
 - **S2 只做 C4 的 Context + Container；S3 才做 Component 内部**
+- **S5 两层都要过**：契约层（`DetailedDesign`）+ 功能层（`Requirement`）；子步 `S5-0..S5-5`
+- **S5 先写用例、后读实现**：期望值只来自 `DetailedDesign` / `Requirement`；实现偏离进 `coverage-gaps` / `Risk`，不回写期望值
+- **S5-0 环境门禁**：agent 起服务；账号 / token / 测试数据由用户提供；缺了停在 S5-0，不猜
+- **S5 类型门控**：Web → E2E，HTTP → API，库 / CLI → 契约 + CLI 黑盒；不装不用的工具
+- **S5 方法来自 `vendor/qa/`**：只读，不改 vendor；`case_lint.py` / `extract_case_schema.py` 必须过
 - **每个阶段只写本阶段该做的事**
 - **S4 按 `references/S4-coding.md` 的 karpathy-guidelines 执行**；每个 CodeUnit **先审查、后提交**；只提交代码根
 - **调 `code-review-expert` 时把范围传给它**：只审 `<代码根>` 的 diff，忽略 `.planning/`；它的「Fix all / …」问询——**S4-1 已授权 → agent 代选；未授权 → 按用户档位，不静默覆盖**
@@ -35,6 +40,7 @@ argument-hint: "新需求话题；或输入「继续」从 active plan 恢复"
 - **ID 全称**：Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk
 - spec **沉默处** → **问用户**，不要自行决定
 - 调别的技能**一律走 Skill 工具、按 id 写**；不要试图"敲斜杠命令"
+- **`vendor/qa/` 不是注册技能**：按路径 `Read` 其 `SKILL.md`；脚本用 Bash 跑；不要 `Skill(qa)` / `Skill(test-strategy)`
 - **不要**经过 `grill-me`
 
 ## 现在开始

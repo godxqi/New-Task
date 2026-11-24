@@ -14,9 +14,9 @@
 
 - **设计链**：`Requirement → Interface → DataModel → DetailedDesign`
 - **实施链**：`DetailedDesign → CodeUnit → Review`
-- **验证链**：`DetailedDesign → TestPoint → TestCase`
+- **验证链**：`DetailedDesign / Requirement → TestPoint → TestCase`（契约层出自 `DetailedDesign`，功能层出自 `Requirement`）
 
-`CodeUnit` 与 `TestPoint` 是 `DetailedDesign` 下的两条并列支线；`TestCase` 在 `TestPoint` 下。`CodeUnit` 的输入不含 `TestCase`。
+`CodeUnit` 是 `DetailedDesign` 下的实施支线；`TestPoint` 可来自 `DetailedDesign` 或 `Requirement`；`TestCase` 在 `TestPoint` 下。`CodeUnit` 的输入不含 `TestCase`。
 
 | 前缀 | 含义 | 产生于 | 指向 |
 |---|---|---|---|
@@ -25,8 +25,8 @@
 | `Interface-n` | 接口 / 用例边界 | S2 | Requirement |
 | `DataModel-n` | 数据模型实体 | S2 | Requirement / Interface |
 | `DetailedDesign-n` | 详细设计条目 | S3 | Interface / DataModel / Requirement |
-| `TestPoint-n` | 测试点 | S3 | DetailedDesign |
-| `TestCase-n` | 测试用例 | S5 | TestPoint（可加 DetailedDesign / Requirement / Interface） |
+| `TestPoint-n` | 测试点 | S3 | DetailedDesign / Requirement |
+| `TestCase-n` | 测试用例 | S5 | TestPoint（契约层来自 DetailedDesign；功能层来自 Requirement） |
 | `CodeUnit-n` | 编码工作项（S4） | S4 | DetailedDesign / Interface |
 | `Review-n` | 审查行，一个 `CodeUnit` 对应一次 `code-review-expert` | S4 | CodeUnit |
 | `ArchDecisionRecord-nnnn` | 架构决策记录 | S1 / S2 / S3 | 相关 Interface / DataModel |
@@ -202,7 +202,7 @@
 
 ## S3 · work-items.md（工作项建议）
 
-> 放 `.planning/plan2_DetailedDesign/output/work-items.md`，**不写进计划、不写审查行**。
+> 放 `.planning/plan3_DetailedDesign/output/work-items.md`，**不写进计划、不写审查行**。
 
 | 字段 | 内容 |
 |---|---|
@@ -215,13 +215,13 @@
 
 ## S3 · test-points.md（测试点）
 
-> 从 `DetailedDesign` 的验收点推导；S5 据此写成正式 `TestCase`。与 `CodeUnit` 解耦。
+> 从 `DetailedDesign` 的验收点或 `Requirement` 的可验证行为推导；S5 据此写成正式 `TestCase`。与 `CodeUnit` 解耦。
 
 | 字段 | 内容 |
 |---|---|
 | `TestPoint-n` | Test Point 编号 |
 | 测试点 | 一句话 |
-| 来自 `DetailedDesign` | `DetailedDesign-n` |
+| 来源 | `DetailedDesign-n`（契约层）或 `Requirement-n`（功能层） |
 | 边界 | 空 / 重复 / 超时 / 部分失败 / 乱序 |
 | 期望 | 可断言的结果 |
 
@@ -245,24 +245,51 @@
 
 顺序：实施 → 审查（工作树）→ 修复 → 提交。
 
-## S5 · test-cases.md（测试用例）
+## S5 · test-strategy.md（测试策略）
+
+> 由 S5-0 产出，方法见 `vendor/qa/skills/test-strategy/`。
 
 | 字段 | 内容 |
 |---|---|
-| `TestCase-n` | 用例名 |
-| 验证 | `TestPoint-n`（来自 `DetailedDesign-n`；可加 `Requirement-n` / `Interface-n`） |
-| 前置 | 初始状态 |
-| 步骤 | 1. … 2. … |
-| 期望 | 可断言的结果 |
-| 边界 | 空 / 重复 / 超时 / 部分失败 / 乱序 |
+| Risk Map | 每条风险挂证据（`Requirement` / 代码位置），评级 Critical–Low |
+| `functional_scope` | 功能 / 边界 / 异常 / 权限 / 状态 / 数据一致性：纳入或排除 + 理由 |
+| `type_scope` | 十轴逐轴 `include / exclude / handoff`；exclude 必写理由 |
+| 自动化计划 | 哪些用例自动化、用什么框架（提案，等用户确认） |
+
+## S5 · test-cases.md（测试用例）
+
+> markmap 格式；ID 只用 `TestCase-n`。完整格式与规则见 `S5-test-design.md`。
+
+文件头四块（lint E1）：`## 功能简介`、`## 环境与账号`、`## 术语表`、`## 图例`。
+
+| 字段 | 内容 |
+|---|---|
+| `TestCase-n` | 用例名（写在名称行，带 `[P0]/[P1]/[P2]`） |
+| 验证 | `TestPoint-n`（可写明来源 `DetailedDesign-n` / `Requirement-n`） |
+| 层 | `contract` / `functional` |
+| 前置条件 | 初始状态；无额外前置可省略 |
+| 操作步骤 | 1. … 2. …；嵌入具体数据，禁占位符 |
+| 预期结果 | 可断言、唯一、可追溯；异步写判定时限 |
+
+## S5 · test-cases.schema.yaml（机读层）
+
+> 由 `scripts/extract_case_schema.py` 从 `test-cases.md` 单向抽取，不手工维护。
+
+| 字段 | 内容 |
+|---|---|
+| `id` | `TestCase-n` |
+| `title` / `priority` / `layer` | 名称 / `P0/P1/P2` / `contract` 或 `functional` |
+| `test_point` / `design_refs` | `TestPoint-n` / 关联的 `DetailedDesign-n`、`Requirement-n` |
+| `preconditions` / `steps` / `expected` | 与 markmap 对应的数组 |
 
 ## S5 · test-results.md（测试结果）
 
 | 字段 | 内容 |
 |---|---|
-| `TestCase-n` | 用例名 |
+| `TestCase-n` | 用例编号 |
 | 状态 | pass / fail / not-run |
-| 证据 | 日志 / 命令 / 输出摘要 |
+| 证据 / 命令 | 实际执行的命令 + 输出摘要（**必须可复现**） |
+| 出口 / 原因 | fail → `Risk-n` 或修复记录；not-run → 原因 + 出口；pass → `—` |
 
 ## S5 · coverage-gaps.md（覆盖缺口）
 
@@ -281,7 +308,7 @@
 |---|---|
 | 设计链 | 每个 `Requirement` 有 `Interface` / `DetailedDesign`；每个 `Interface` / `DataModel` 有 `DetailedDesign` |
 | 实施链 | 每个 `DetailedDesign` 有 `CodeUnit`；每个 `CodeUnit` 有 `Review` |
-| 验证链 | 每个 `DetailedDesign` 有 `TestPoint`；每个 `TestPoint` 有 `TestCase`（或缺口有出口）；每个 `TestCase` 能指回 `TestPoint` |
+| 验证链 | 每个 `DetailedDesign` 有 `TestPoint`；每个 `TestPoint` 有 `TestCase`（或缺口有出口）；每个 `TestCase` 能指回 `TestPoint`，且 `TestPoint` 来源与 `层` 一致 |
 
 | 字段 | 内容 |
 |---|---|

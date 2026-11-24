@@ -2,8 +2,8 @@
 
 **目标**：把 S2 的架构落到 Container 内部：模块、接口契约、数据结构、算法边界；给 S4 工作项建议、给 S5 测试点。
 **分界**：C4 的 **Component 层**——Container 内部怎么造。跨 Container 的归 S2。
-**计划目录**：`.planning/plan2_DetailedDesign/`
-**产物目录**：`.planning/plan2_DetailedDesign/output/`
+**计划目录**：`.planning/plan3_DetailedDesign/`
+**产物目录**：`.planning/plan3_DetailedDesign/output/`
 
 ## 开场
 
@@ -38,7 +38,7 @@
 ### S3-5 交接产物（不写计划、不写审查行）
 
 - `output/work-items.md`：编码工作项建议。输入只有 `DetailedDesign`（可加 `Interface`），**不含 `TestCase`**。
-- `output/test-points.md`：从 `DetailedDesign` 的验收点推导的**测试点** `TestPoint-1..n`；S5 据此写成正式 `TestCase`。
+- `output/test-points.md`：从 `DetailedDesign` 的验收点（契约层）或 `Requirement` 的可验证行为（功能层）推导的**测试点** `TestPoint-1..n`；S5 据此写成正式 `TestCase`。
 - **不写进计划、不写审查待办行** —— 工作项在 S4-1 定稿，TestCase 在 S5 定稿。
 
 ## 收尾（切计划门）
@@ -46,7 +46,7 @@
 - 复盘拷问（`grilling` 固定一轮，对象 = 详设产物）。
 - 逐条风险确认。
 - 设计链检查：每个 `Interface` / `DataModel` 有对应 `DetailedDesign`；每条 `DetailedDesign` 挂到 `Requirement`。
-- 问："详设完成，是否切到 `plan3_Coding`？"
-- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan3」；**更新 `plan3_Coding` 的恢复入口**（已完成：S3；下一步：S4-1 建编码计划；输入：S3 `output/`）；`set-active-plan.sh plan3_Coding`。
-- **提醒提交**：`git add .planning/plan2_DetailedDesign .planning/plan3_Coding && git commit -m "S3: detailed design"`。
+- 问："详设完成，是否切到 `plan4_Coding`？"
+- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan4」；**更新 `plan4_Coding` 的恢复入口**（已完成：S3；下一步：S4-1 建编码计划；输入：S3 `output/`）；`set-active-plan.sh plan4_Coding`。
+- **提醒提交**：`git add .planning/plan3_DetailedDesign .planning/plan4_Coding && git commit -m "S3: detailed design"`。
 - 提示**强制 `/clear`** 后输入 `/new-task 继续`。

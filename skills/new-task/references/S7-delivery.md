@@ -1,8 +1,8 @@
 # S7 交付
 
 **目标**：把可运行的系统、文档与决策记录打包，交给用户。
-**计划目录**：`.planning/plan6_Delivery/`
-**产物目录**：`.planning/plan6_Delivery/output/`
+**计划目录**：`.planning/plan7_Delivery/`
+**产物目录**：`.planning/plan7_Delivery/output/`
 
 ## 开场
 
@@ -33,5 +33,5 @@
 
 - 复盘拷问（`grilling` 固定一轮，对象 = 交付清单）。
 - 逐条风险确认（交付风险）。
-- **提醒提交**：`git add .planning/plan6_Delivery <交付说明文件> && git commit -m "S7: delivery"`。
+- **提醒提交**：`git add .planning/plan7_Delivery <交付说明文件> && git commit -m "S7: delivery"`。
 - 全流程结束。

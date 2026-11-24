@@ -1,6 +1,13 @@
 # 新任务流程（task-planning）· 索引
 
-**状态**：v20 —— 2026-11-22 按第七轮复审返工：
+**状态**：v21 —— 2026-11-23 S5 重构：
+- S5 升级为**两层**：契约层（`TestCase←TestPoint←DetailedDesign`）+ 功能层（`TestCase←TestPoint←Requirement`），子步 `S5-0..S5-5`；
+- 引入 `vendor/qa/`（qa-skills 0.9.0 裁剪子集，MIT）；新增 `test-strategy.md`、`test-cases.schema.yaml`、独立用例审查；
+- `TestPoint` 来源允许 `DetailedDesign` 或 `Requirement`；
+- `validate.sh` 增加结果闭环、`case_lint.py`、两轨用例数一致；
+- 新增 `references/S5-test-design.md`、`scripts/case_lint.py`、`scripts/extract_case_schema.py`；
+- **计划目录改为 1 基**：`plan1_RequirementsConfirm` … `plan7_Delivery`（S5 = `plan5_Test`，S6 = `plan6_Review`）。
+**v20** —— 2026-11-22 按第七轮复审返工：
 - 补完残留 `NonFunctionalRequirement` / `ArchDecisionRecord` 概念词（v19 声称已改，实际漏改）；
 - S5-4 补缺口后**重跑全量**并更新 `test-results.md`；
 - S6-2 增加「`test-results.md` 无 fail / not-run（或有出口）」判据。
@@ -69,20 +76,20 @@
 <task-id>/
 ├── .git/                               # 仓库根（bootstrap）
 ├── .planning/
-│   ├── plan0_RequirementsConfirm/
+│   ├── plan1_RequirementsConfirm/
 │   │   ├── task_plan.md / progress.md / findings.md
 │   │   └── output/                     # requirements / nfr / estimation / GLOSSARY / adr
-│   ├── plan1_ArchitectureDesign/
+│   ├── plan2_ArchitectureDesign/
 │   │   └── output/                     # quality / interfaces / data-model / architecture / bottlenecks / adr
-│   ├── plan2_DetailedDesign/
+│   ├── plan3_DetailedDesign/
 │   │   └── output/                     # detailed-design / work-items / test-points
-│   ├── plan3_Coding/
+│   ├── plan4_Coding/
 │   │   └── output/
-│   ├── plan4_Test/
-│   │   └── output/                     # test-cases / test-results / coverage-gaps
-│   ├── plan5_Review/
+│   ├── plan5_Test/
+│   │   └── output/                     # test-strategy / test-cases / test-cases.schema.yaml / test-results / coverage-gaps
+│   ├── plan6_Review/
 │   │   └── output/                     # reconciliation
-│   └── plan6_Delivery/
+│   └── plan7_Delivery/
 │       └── output/                     # deliverables
 └── src/                                # 代码根，与 .planning 同级
 ```
@@ -103,13 +110,13 @@
    - 若仓库**已有提交** → **不建空提交**，记当前 `git rev-parse HEAD` 为基线。
    - 把基线 hash 写进七阶段计划。
 4. **一次性建好七个阶段的计划骨架**：
-   - 对 `plan0_RequirementsConfirm` … `plan6_Delivery`：
+   - 对 `plan1_RequirementsConfirm` … `plan7_Delivery`：
      - `mkdir -p .planning/<plan>/output`
      - `cp -n "$HOME/.claude/skills/planning-with-files-zh/templates/task_plan.md" "$HOME/.claude/skills/planning-with-files-zh/templates/findings.md" "$HOME/.claude/skills/planning-with-files-zh/templates/progress.md" .planning/<plan>/`
      - 写最小 `task_plan.md`：恢复入口 + 本阶段子步占位（全部 `pending`）+ 基线提交号。
-     - **子步占位按各阶段 `references/S*.md` 的标题生成**：S1-1..S1-4、S2-1..S2-7、S3-1..S3-5、S4-1..S4-4、S5-1..S5-4、S6-1..S6-3、S7-1..S7-3。
-5. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/set-active-plan.sh" plan0_RequirementsConfirm`
-6. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/resolve-plan-dir.sh"` → 必须等于 `.planning/plan0_RequirementsConfirm`，否则**停**。
+     - **子步占位按各阶段 `references/S*.md` 的标题生成**：S1-1..S1-4、S2-1..S2-7、S3-1..S3-5、S4-1..S4-4、S5-0..S5-5、S6-1..S6-3、S7-1..S7-3。
+5. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/set-active-plan.sh" plan1_RequirementsConfirm`
+6. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/resolve-plan-dir.sh"` → 必须等于 `.planning/plan1_RequirementsConfirm`，否则**停**。
 
 > **唯一创建者 = bootstrap**。阶段开场不再 `mkdir` / `cp` / `set-active-plan`；阶段收尾只更新下一阶段的恢复入口并换指针。
 
@@ -119,7 +126,7 @@
 ## 恢复入口（/clear 后先读这里）
 - 你是 new-task 流程的 **S3 详细设计**，不是新任务。
 - 先读：SKILL.md → workflows/task-planning.md → references/S3-detailed-design.md
-- 再读输入：.planning/plan1_ArchitectureDesign/output/
+- 再读输入：.planning/plan2_ArchitectureDesign/output/
 - 已完成：S3-1、S3-2
 - 下一步：S3-3 数据结构
 - 未决风险：Risk-2（待用户出口）
@@ -170,13 +177,14 @@
 | 阶段 | 提交 |
 |---|---|
 | S1–S3 / S6 | `git add .planning/plan<N>_XXXX .planning/plan<N+1>_XXXX` → commit（含下一阶段恢复入口） |
-| S7 | `git add .planning/plan6_Delivery <交付说明文件>` → commit（**没有 plan7**） |
-| S4 每个 WI（审查前） | `git add .planning/plan3_Coding && git commit -m "plan: CodeUnit-n"`，清空工作树里的计划改动 |
+| S7 | `git add .planning/plan7_Delivery <交付说明文件>` → commit（**没有 plan8**） |
+| S4 每个 WI（审查前） | `git add .planning/plan4_Coding && git commit -m "plan: CodeUnit-n"`，清空工作树里的计划改动 |
 | S4 每个 WI（审查后） | `git add <代码根> && git commit -m "CodeUnit-n: …"` |
 | S4-4 收缩 | `git add <代码根> && git commit -m "chore: shrink"` |
-| S4 收尾 | `git add .planning/plan3_Coding .planning/plan4_Test` → commit |
-| S5（审查前 / 后） | `git add .planning/plan4_Test && git commit -m "plan: S5"`；审测试 → `git add <测试文件> && git commit -m "tests: …"` |
-| S5 收尾 | `git add .planning/plan4_Test .planning/plan5_Review` → commit |
+| S4 收尾 | `git add .planning/plan4_Coding .planning/plan5_Test` → commit |
+| S5 用例审查后 | `git add .planning/plan5_Test && git commit -m "plan: S5"` |
+| S5 测试代码 | `git add <测试文件> && git commit -m "tests: S5"` |
+| S5 收尾 | `git add .planning/plan5_Test .planning/plan6_Review` → commit |
 
 - 不要 `git add .`；每阶段只提交自己的产物。
 - **审查前先把 `.planning` 提交掉**，让工作树只剩代码；并明确告诉技能只审代码根。
@@ -202,13 +210,13 @@
 
 | 阶段 | 计划 / 产物 | 细则 |
 |---|---|---|
-| S1 需求分析 | `plan0_RequirementsConfirm/` | [S1-requirements.md](../references/S1-requirements.md) |
-| S2 架构设计 | `plan1_ArchitectureDesign/` | [S2-architecture.md](../references/S2-architecture.md) |
-| S3 详细设计 | `plan2_DetailedDesign/` | [S3-detailed-design.md](../references/S3-detailed-design.md) |
-| S4 编码 | `plan3_Coding/` | [S4-coding.md](../references/S4-coding.md) |
-| S5 测试 | `plan4_Test/` | [S5-test.md](../references/S5-test.md)（骨架，待定稿） |
-| S6 审查 | `plan5_Review/` | [S6-review.md](../references/S6-review.md)（骨架，待定稿） |
-| S7 交付 | `plan6_Delivery/` | [S7-delivery.md](../references/S7-delivery.md) |
+| S1 需求分析 | `plan1_RequirementsConfirm/` | [S1-requirements.md](../references/S1-requirements.md) |
+| S2 架构设计 | `plan2_ArchitectureDesign/` | [S2-architecture.md](../references/S2-architecture.md) |
+| S3 详细设计 | `plan3_DetailedDesign/` | [S3-detailed-design.md](../references/S3-detailed-design.md) |
+| S4 编码 | `plan4_Coding/` | [S4-coding.md](../references/S4-coding.md) |
+| S5 测试 | `plan5_Test/` | [S5-test.md](../references/S5-test.md) + [S5-test-design.md](../references/S5-test-design.md)（方法来源 `vendor/qa/`） |
+| S6 审查 | `plan6_Review/` | [S6-review.md](../references/S6-review.md)（骨架，待定稿） |
+| S7 交付 | `plan7_Delivery/` | [S7-delivery.md](../references/S7-delivery.md) |
 
 **S1 内部**：`S1-1 功能需求拷问（4 轮）→ S1-2 非功能需求拷问（4 轮）+ 估规模 → S1-3 落计划 → S1-4 复盘 + 风险确认`。
 
@@ -220,7 +228,7 @@
 |---|---|---|
 | **设计链** | `Requirement → Interface → DataModel → DetailedDesign` | 需求 → 接口 → 数据 → 详设 |
 | **实施链** | `DetailedDesign → CodeUnit → Review` | 详设 → 工作项 → 审查 |
-| **验证链** | `DetailedDesign → TestPoint → TestCase` | 详设 → 测试点 → 测试用例 |
+| **验证链** | `DetailedDesign / Requirement → TestPoint → TestCase` | 详设或需求 → 测试点 → 测试用例（契约层 / 功能层） |
 
 - **`CodeUnit` 的输入只有 `DetailedDesign`（可加 `Interface`），不含 `TestCase`**。
 - **NonFunctionalRequirement 编号**：S1 定义 `NonFunctionalRequirement-1..n`；S2 的质量属性表**细化同一批 ID**（补可度量目标与冲突），新增属性才续编号。
@@ -255,7 +263,8 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 ```
 
 - 用户级安装默认路径成立；**项目级安装**时设 `NEW_TASK_SKILL_DIR=<项目>/.claude/skills/new-task`，或直接换成项目路径。
-- 检查：七阶段产物齐全、ID 编号连续、设计/实施/验证三条链**行级断点**、ArchDecisionRecord 文件与索引、`nfr.md` / `GLOSSARY.md`。阶段末与 S6 后各跑一次。
+- 检查：七阶段产物齐全、ID 编号连续、设计/实施/验证三条链**行级断点**、ArchDecisionRecord 文件与索引、`nfr.md` / `GLOSSARY.md`；S5 另有结果闭环（每个 `TestCase` 有结果行、`fail` 有出口、`not-run` 有原因）、`case_lint.py`、两轨用例数一致。阶段末与 S6 后各跑一次。
+- 自测：`sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/tests/run.sh"`（正样例须过、反样例须拦）。
 
 ## 终止
 
@@ -275,7 +284,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 第一个 CodeUnit 没有父提交 | 无提交的仓库要有空基线；已有提交的仓库记 HEAD 为基线 |
 | 已有提交的仓库还建空基线 | 语义不清；直接记当前 HEAD |
 | 切计划门不更新当前计划 | 自愈依赖「本阶段已完成，下一步 planN」，必须写 |
-| S4/S5 只提交代码 / 测试、不提交计划 | plan3/plan4 与审查行会一直 uncommitted |
+| S4/S5 只提交代码 / 测试、不提交计划 | plan4/plan5 与审查行会一直 uncommitted |
 | 用长文本代替弹框 | 用户要"点选" |
 | AI 自行拍架构 / 接口 / 数据取舍 | 取舍是用户的决策 |
 | 跳过复盘 / 风险确认 | 一个抓 AI 的错，一个给用户出口 |
@@ -312,7 +321,7 @@ sh "${NEW_TASK_SKILL_DIR:-$HOME/.claude/skills/new-task}/scripts/validate.sh" "$
 | 风险确认 | 阶段末逐条给风险定出口 |
 | 切计划门 | 阶段门：更新恢复入口 + 换指针 + 提示强制 `/clear` |
 | 恢复入口 | 计划顶部的块，`/clear` 后据此继续 |
-| 三条链 | 设计 `Requirement→Interface→DataModel→DetailedDesign`；实施 `DetailedDesign→CodeUnit→Review`；验证 `DetailedDesign→TestPoint→TestCase` |
+| 三条链 | 设计 `Requirement→Interface→DataModel→DetailedDesign`；实施 `DetailedDesign→CodeUnit→Review`；验证 `DetailedDesign/Requirement→TestPoint→TestCase` |
 | ID 全称 | Requirement / NonFunctionalRequirement / Interface / DataModel / DetailedDesign / TestPoint / TestCase / CodeUnit / Review / ArchDecisionRecord / Risk |
 
 ## 边界

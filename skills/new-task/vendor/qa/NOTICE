@@ -1,0 +1,17 @@
+# Vendored from qa-skills 0.9.0
+
+来源：https://github.com/fishzjp/qa-skills
+许可证：MIT（见同目录 LICENSE）
+
+本目录只保留 new-task S5 用到的子集：
+
+- `skills/test-strategy`、`skills/test-case-writing`、`skills/test-case-review`、
+  `skills/automated-e2e-testing`、`skills/api-testing`
+- `skills/core/` 中被上述 skill 引用的方法、标准、模板与脚本
+
+未收录：`qa` 编排入口、`requirement-analysis`、`bug-analysis`、`regression-testing`、
+`exploratory-testing`、`test-reliability`、`ai-system-testing`、`qa-memory`、
+安装器、评测资产。`core/` 内被上述 skill 引用的文档与脚本已随附，避免断链。
+
+本地改动：new-task 的用例 ID 与格式适配见 `skills/new-task/scripts/case_lint.py`
+（fork）与 `skills/new-task/scripts/extract_case_schema.py`（自研）。原文件不改动。

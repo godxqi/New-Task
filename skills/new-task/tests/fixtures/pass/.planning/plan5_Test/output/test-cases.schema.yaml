@@ -1,0 +1,30 @@
+meta:
+  source_markmap: "test-cases.md"
+  extracted_at: "2026-11-23"
+cases:
+  - id: "TestCase-1"
+    title: "密码错误抛 AuthError"
+    priority: "P0"
+    layer: "contract"
+    test_point: "TestPoint-1"
+    design_refs: ["DetailedDesign-1"]
+    preconditions:
+      - "用户 alice 已存在，密码正确"
+    steps:
+      - "调用 login(\"alice\", \"wrong\")"
+      - "捕获异常"
+    expected:
+      - "抛出 AuthError，错误码 AUTH_INVALID"
+  - id: "TestCase-2"
+    title: "连续三次错误密码后出现图形验证码"
+    priority: "P1"
+    layer: "functional"
+    test_point: "TestPoint-2"
+    design_refs: ["Requirement-1"]
+    preconditions:
+      - "用户 alice 已注册"
+    steps:
+      - "用错误密码登录三次"
+      - "第四次打开登录页"
+    expected:
+      - "第四次页面出现图形验证码输入框"

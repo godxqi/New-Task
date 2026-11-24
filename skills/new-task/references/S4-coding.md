@@ -1,8 +1,8 @@
 # S4 编码
 
 **目标**：按 S3 的 `DetailedDesign` 与工作项建议落代码；每个 CodeUnit **先审查、后提交**；全部完成后收缩。
-**计划目录**：`.planning/plan3_Coding/`
-**产物目录**：`.planning/plan3_Coding/output/`
+**计划目录**：`.planning/plan4_Coding/`
+**产物目录**：`.planning/plan4_Coding/output/`
 
 ## 代码根与基线
 
@@ -28,7 +28,7 @@
 
 ## S4-3 逐工作项审查 → 提交
 
-1. **先清工作树**：把 `.planning/plan3_Coding` 的改动单独提交（`git add .planning/plan3_Coding && git commit -m "plan: CodeUnit-n"`；无改动则跳过），让工作树只剩代码。
+1. **先清工作树**：把 `.planning/plan4_Coding` 的改动单独提交（`git add .planning/plan4_Coding && git commit -m "plan: CodeUnit-n"`；无改动则跳过），让工作树只剩代码。
 2. 调 **Skill `code-review-expert`**，并在调用提示里**明确传入范围**：只审 `git diff -- <代码根>`，**忽略 `.planning/`**。
 3. 它默认弹「Fix all / P0-P1 only / 不改」——**S4-1 已授权 → agent 代选 Fix all（P0~P3 全修）；未授权 → 按用户选的档位，不静默覆盖技能规则**。
 4. 结论回写 `findings.md`；拒绝修复的写明理由，并进风险表拿出口。
@@ -42,9 +42,9 @@
 - 复盘拷问（`grilling` 固定一轮，对象 = 本阶段代码 + findings）。
 - 逐条风险确认（代码级风险）。
 - 实施链检查：每个 `DetailedDesign` 有 `CodeUnit`，每个 `CodeUnit` 有 `Review`。
-- 问："编码完成，是否切到 `plan4_Test`？"
-- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan4」；**更新 `plan4_Test` 的恢复入口**（已完成：S4；下一步：S5-1 写测试；输入：代码根 + S3 `output/`）；`set-active-plan.sh plan4_Test`。
-- **提醒提交**：`git add .planning/plan3_Coding .planning/plan4_Test && git commit -m "S4: plan"`。
+- 问："编码完成，是否切到 `plan5_Test`？"
+- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan5」；**更新 `plan5_Test` 的恢复入口**（已完成：S4；下一步：S5-0 范围、环境与策略；输入：代码根 + S1/S3 `output/`）；`set-active-plan.sh plan5_Test`。
+- **提醒提交**：`git add .planning/plan4_Coding .planning/plan5_Test && git commit -m "S4: plan"`。
 - **额外提醒**：代码是本阶段核心产物，未提交会影响 S5/S6 的审查与对比。
 - 提示**强制 `/clear`** 后输入 `/new-task 继续`。
 

@@ -1,8 +1,8 @@
 # S1 需求分析
 
 **目标**：先问清功能需求，再问清非功能需求并做规模估算，产出需求、NonFunctionalRequirement、估算、术语、本阶段计划与风险表。
-**计划目录**：`.planning/plan0_RequirementsConfirm/`
-**产物目录**：`.planning/plan0_RequirementsConfirm/output/`
+**计划目录**：`.planning/plan1_RequirementsConfirm/`
+**产物目录**：`.planning/plan1_RequirementsConfirm/output/`
 
 ## 开场（Bootstrap，只在 S1 做一次）
 
@@ -14,13 +14,13 @@
    - 若仓库**没有任何提交** → `git commit --allow-empty -m "chore: baseline"`。
    - 若仓库**已有提交** → **不建空提交**，记当前 `git rev-parse HEAD` 为基线。
    - 把基线 hash 写进七阶段计划。
-4. **一次性建好七个阶段的计划骨架**：对 `plan0_RequirementsConfirm` … `plan6_Delivery`：
+4. **一次性建好七个阶段的计划骨架**：对 `plan1_RequirementsConfirm` … `plan7_Delivery`：
    - `mkdir -p .planning/<plan>/output`
    - `cp -n "$HOME/.claude/skills/planning-with-files-zh/templates/task_plan.md" "$HOME/.claude/skills/planning-with-files-zh/templates/findings.md" "$HOME/.claude/skills/planning-with-files-zh/templates/progress.md" .planning/<plan>/`
    - 写最小 `task_plan.md`：恢复入口 + 子步占位（全部 `pending`）+ 基线提交号。
-   - **子步占位按各阶段 `references/S*.md` 的标题生成**：S1-1..S1-4、S2-1..S2-7、S3-1..S3-5、S4-1..S4-4、S5-1..S5-4、S6-1..S6-3、S7-1..S7-3。
-5. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/set-active-plan.sh" plan0_RequirementsConfirm`
-6. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/resolve-plan-dir.sh"` → 必须等于 `.planning/plan0_RequirementsConfirm`，否则**停**。
+   - **子步占位按各阶段 `references/S*.md` 的标题生成**：S1-1..S1-4、S2-1..S2-7、S3-1..S3-5、S4-1..S4-4、S5-0..S5-5、S6-1..S6-3、S7-1..S7-3。
+5. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/set-active-plan.sh" plan1_RequirementsConfirm`
+6. `sh "$HOME/.claude/skills/planning-with-files-zh/scripts/resolve-plan-dir.sh"` → 必须等于 `.planning/plan1_RequirementsConfirm`，否则**停**。
 
 > 唯一创建者是 bootstrap；后续阶段不再 `mkdir` / `cp` / `set-active-plan`（切计划门只更新恢复入口并换指针）。
 
@@ -87,9 +87,9 @@
 
 ## 收尾（切计划门）
 
-1. 风险给完出口后，问："S1 完成，是否切到 `plan1_ArchitectureDesign`？"
-2. 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan1」。
-3. **更新 `plan1_ArchitectureDesign/task_plan.md` 的恢复入口**（已完成：S1；下一步：S2-1 质量属性；输入：S1 `output/`）。
-4. `set-active-plan.sh plan1_ArchitectureDesign`。
-5. **提醒提交**：`git add .planning/plan0_RequirementsConfirm .planning/plan1_ArchitectureDesign && git commit -m "S1: requirements"`。
+1. 风险给完出口后，问："S1 完成，是否切到 `plan2_ArchitectureDesign`？"
+2. 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan2」。
+3. **更新 `plan2_ArchitectureDesign/task_plan.md` 的恢复入口**（已完成：S1；下一步：S2-1 质量属性；输入：S1 `output/`）。
+4. `set-active-plan.sh plan2_ArchitectureDesign`。
+5. **提醒提交**：`git add .planning/plan1_RequirementsConfirm .planning/plan2_ArchitectureDesign && git commit -m "S1: requirements"`。
 6. 告诉用户：**`/clear` 强制**；清空后输入 `/new-task 继续`。

@@ -1,2 +1,6 @@
 # 本地计划工作区，不随仓库分享
 .planning/
+
+# Python 缓存
+__pycache__/
+*.pyc

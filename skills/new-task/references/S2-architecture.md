@@ -3,13 +3,13 @@
 **目标**：产出可被 S3 消费的架构方案：质量属性、接口、数据模型、全景图、瓶颈、ArchDecisionRecord。
 **依据**：`references/architecture-principles.md`（已内联）。
 **分界**：只做 **C4 的 Context + Container 层**；Container 内部留给 S3。
-**计划目录**：`.planning/plan1_ArchitectureDesign/`
-**产物目录**：`.planning/plan1_ArchitectureDesign/output/`
+**计划目录**：`.planning/plan2_ArchitectureDesign/`
+**产物目录**：`.planning/plan2_ArchitectureDesign/output/`
 
 ## 开场
 
 1. 读 S1 的 `output/`：`requirements.md`、`nfr.md`、`estimation.md`、`GLOSSARY.md`、`adr/`。
-2. **不新建计划**（bootstrap 已建好 `plan1_ArchitectureDesign`）；读 active plan，把临时骨架复写成正式计划。
+2. **不新建计划**（bootstrap 已建好 `plan2_ArchitectureDesign`）；读 active plan，把临时骨架复写成正式计划。
 3. 更新恢复入口后，打 S2 横幅。
 
 恢复入口示例：
@@ -18,7 +18,7 @@
 ## 恢复入口（/clear 后先读这里）
 - 你是 new-task 流程的 **S2 架构设计**，不是新任务。
 - 先读：SKILL.md → workflows/task-planning.md → references/S2-architecture.md
-- 再读输入：.planning/plan0_RequirementsConfirm/output/
+- 再读输入：.planning/plan1_RequirementsConfirm/output/
 - 已完成：S2-1、S2-2
 - 下一步：S2-3 数据模型
 - 未决风险：Risk-1（待用户出口）
@@ -69,7 +69,7 @@
 - 复盘拷问（`grilling` 固定一轮，对象 = S2 全部产物）。
 - 逐条风险确认。
 - 设计链检查：`Requirement → Interface → DataModel → DetailedDesign`（DetailedDesign 在 S3 补）。
-- 问："架构完成，是否切到 `plan2_DetailedDesign`？"
-- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan2」；**更新 `plan2_DetailedDesign` 的恢复入口**（已完成：S2；下一步：S3-1 组件划分；输入：S2 `output/`）；`set-active-plan.sh plan2_DetailedDesign`。
-- **提醒提交**：`git add .planning/plan1_ArchitectureDesign .planning/plan2_DetailedDesign && git commit -m "S2: architecture"`。
+- 问："架构完成，是否切到 `plan3_DetailedDesign`？"
+- 用户确认 → **更新当前计划**为「本阶段已完成，下一步 plan3」；**更新 `plan3_DetailedDesign` 的恢复入口**（已完成：S2；下一步：S3-1 组件划分；输入：S2 `output/`）；`set-active-plan.sh plan3_DetailedDesign`。
+- **提醒提交**：`git add .planning/plan2_ArchitectureDesign .planning/plan3_DetailedDesign && git commit -m "S2: architecture"`。
 - 提示**强制 `/clear`** 后输入 `/new-task 继续`。
